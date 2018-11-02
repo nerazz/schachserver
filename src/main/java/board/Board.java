@@ -11,7 +11,7 @@ public class Board {
     public void init() {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                fields[i][j] = new Field();
+                fields[i][j] = new Field(i, j);
 
             }
         }
@@ -23,7 +23,7 @@ public class Board {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (j == 0) {
-                    board.append(i).append(" ");
+                    board.append(i+1).append(" ");
                 }
                 board.append(fields[i][j].toString());
             }

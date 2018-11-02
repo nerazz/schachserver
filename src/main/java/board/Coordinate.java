@@ -5,8 +5,21 @@ package board;
  */
 
 public class Coordinate {
-    private int x = -1;
-    private int y = -1;
+    private final int x;
+    private final int y;
+
+    Coordinate(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    int getX() {
+        return x;
+    }
+
+    int getY() {
+        return y;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -14,5 +27,11 @@ public class Coordinate {
             return false;
         }
         return (((Coordinate)o).x == x && ((Coordinate)o).y == y);
+    }
+
+    @Override
+    public String toString() {
+        char cx = (char)(x + 65);
+        return String.format("{%c,%d}", cx, y+1);
     }
 }
