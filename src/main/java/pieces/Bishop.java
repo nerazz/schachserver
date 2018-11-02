@@ -20,8 +20,8 @@ public class Bishop extends Piece {
 
 
 
-    public Bishop(PlayerColor color, Board board, Coordinate current) {
-        super(color, board, current);
+    public Bishop(PlayerColor color, Coordinate current) {
+        super(color, current);
     }
 
 

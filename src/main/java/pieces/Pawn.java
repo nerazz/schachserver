@@ -16,8 +16,8 @@ public class Pawn extends Piece {
 
 
 
-    public Pawn(PlayerColor color, Board board, Coordinate current) {
-        super(color, board, current);
+    public Pawn(PlayerColor color, Coordinate current) {
+        super(color, current);
     }
 
 

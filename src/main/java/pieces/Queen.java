@@ -7,8 +7,8 @@ import players.PlayerColor;
 public class Queen extends Piece{
 
 
-    public Queen(PlayerColor color, Board board, Coordinate current) {
-        super(color, board, current);
+    public Queen(PlayerColor color, Coordinate current) {
+        super(color, current);
     }
 
 }

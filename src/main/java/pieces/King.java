@@ -7,8 +7,8 @@ import players.PlayerColor;
 public class King extends Piece {
 
 
-    public King(PlayerColor color, Board board, Coordinate current) {
-        super(color, board, current);
+    public King(PlayerColor color, Coordinate current) {
+        super(color, current);
     }
 }
 

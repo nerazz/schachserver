@@ -23,9 +23,8 @@ public abstract class Piece {
 
 
 
-    protected Piece(PlayerColor color, Board board, Coordinate current) {
+    protected Piece(PlayerColor color, Coordinate current) {
         this.color = color;
-        this.board = board;
         current_coordinate = current;
 
     }

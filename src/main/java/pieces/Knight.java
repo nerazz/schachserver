@@ -16,8 +16,8 @@ public class Knight extends Piece {
 
 
 
-    public Knight(PlayerColor color, Board board, Coordinate current) {
-        super(color, board, current);
+    public Knight(PlayerColor color, Coordinate current) {
+        super(color, current);
     }
 
 

@@ -7,8 +7,8 @@ import players.PlayerColor;
 public class Rook extends Piece{
 
 
-    public Rook(PlayerColor color, Board board, Coordinate current) {
-        super(color, board, current);
+    public Rook(PlayerColor color, Coordinate current) {
+        super(color, current);
     }
 
 
