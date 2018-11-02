@@ -5,7 +5,7 @@ package board;
  */
 
 public enum State {
-    EMPTY,
-    WHITE,
-    BLACK
+	EMPTY,
+	WHITE,
+	BLACK
 }

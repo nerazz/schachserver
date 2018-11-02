@@ -5,6 +5,6 @@ package players;
  */
 
 public enum PlayerColor {
-    WHITE,
-    BLACK
+	WHITE,
+	BLACK
 }

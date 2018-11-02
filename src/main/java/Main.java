@@ -3,10 +3,10 @@ import players.Player;
 import players.PlayerColor;
 
 public class Main {
-    public static void main(String[] args) {
-        Player white = new Player(PlayerColor.WHITE);
-        Player black = new Player(PlayerColor.BLACK);
-        Board b = new Board(white, black);
-        System.out.println(b.toString());
-    }
+	public static void main(String[] args) {
+		Player white = new Player(PlayerColor.WHITE);
+		Player black = new Player(PlayerColor.BLACK);
+		Board b = new Board(white, black);
+		System.out.println(b.toString());
+	}
 }
