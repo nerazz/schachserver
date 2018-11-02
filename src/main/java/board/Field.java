@@ -43,6 +43,6 @@ public class Field {
 	@Override
 	public String toString() {
 		//return state == null ? "[ ]" : "[" + state.toString() + "]";
-		return state == null ? "[" + coord.toString() + "]" : "[" + state.toString() + "]";
+		return piece == null ? "[" + state.toString() + "]" : "[" + piece.toString() + "]";
 	}
 }

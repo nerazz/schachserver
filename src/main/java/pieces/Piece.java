@@ -52,4 +52,12 @@ public abstract class Piece {
 		}
 		return false;
 	}
+
+	@Override
+	public String toString() {
+		String s = "";
+		s = (color == PlayerColor.WHITE) ? "W" : "B";
+		s += this.getClass().getSimpleName();
+		return s;
+	}
 }
