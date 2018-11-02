@@ -14,9 +14,6 @@ import players.PlayerColor;
 public class Bishop extends Piece {
 
 	private PlayerColor color;
-	private boolean hasMoved = false;
-	private Coordinate current_coordinate;
-	private Coordinate new_coordinate;
 
 
 	public Bishop(PlayerColor color, Coordinate current) {
@@ -24,42 +21,79 @@ public class Bishop extends Piece {
 	}
 
 
-/*
+	public void validmove() {
+
+		State state;
+		if (color == PlayerColor.WHITE) {
+			state = State.WHITE;
+
+		} else {
+			state = State.BLACK;
+		}
+
+		Field[][] fields = getBoard().getState();
+		int x = getCurrent().getX();
+		int y = getCurrent().getY();
+		boolean stop = true;
+		int a = 1;
+		while (x + a <= 7 && y + a <= 7 && stop) {
+			if (fields[x + a][y + a].getState() == State.EMPTY) {
+				validmoves.add(new Coordinate(x + a, y + a));
+			} else if (fields[x + a][y + a].getState() != state) {
+				validmoves.add(new Coordinate(x + a, y + a));
+				stop = false;
+			} else {
+				stop = false;
+			}
+			a++;
+		}
+
+		stop = true;
+		a = 1;
+		while (x - a >= 0 && y - a >= 0 && stop) {
+			if (fields[x + a][y + a].getState() == State.EMPTY) {
+				validmoves.add(new Coordinate(x - a, y - a));
+			} else if (fields[x - a][y - a].getState() != state) {
+				validmoves.add(new Coordinate(x - a, y - a));
+				stop = false;
+			} else {
+				stop = false;
+			}
+			a++;
+		}
 
 
-    public void validmove() {
+		stop = true;
+		a = 1;
+		while (x + a <= 7 && y - a >= 0 && stop) {
+			if (fields[x + a][y - a].getState() == State.EMPTY) {
+				validmoves.add(new Coordinate(x + a, y - a));
+			} else if (fields[x + a][y - a].getState() != state) {
+				validmoves.add(new Coordinate(x + a, y - a));
+				stop = false;
+			} else {
+				stop = false;
+			}
+			a++;
+		}
 
-        Field[][] state = getBoard().getState();
-        int x = current_coordinate.getX();
-        int y = current_coordinate.getY();
+		stop = true;
+		a = 1;
+		while (x - a >= 0 && y + a <= 7 && stop) {
+			if (fields[x - a][y + a].getState() == State.EMPTY) {
+				validmoves.add(new Coordinate(x - a, y + a));
+
+			} else if (fields[x - a][y + a].getState() != state) {
+				validmoves.add(new Coordinate(x - a, y + a));
+				stop = false;
+			} else {
+				stop = false;
+			}
+			a++;
+		}
 
 
-        while()
-
-        if (color == PlayerColor.WHITE) {
-            if(state[x][y+1].getState() == State.EMPTY) {
-                validmoves.add(new Coordinate(x, y + 1));
-            }
-            if(state[x+1][y+1].getState() != State.EMPTY && state[x+1][y+1].getState() == State.BLACK) {
-                validmoves.add(new Coordinate(x + 1, y + 1));
-            }
-            if(state[x-1][y+1].getState() != State.EMPTY && state[x-1][y+1].getState() == State.BLACK) {
-                validmoves.add(new Coordinate(x - 1, y + 1));
-            }
-        } else {
-            if(state[x][y-1].getState() == State.EMPTY) {
-                validmoves.add(new Coordinate(x, y - 1));
-            }
-            if(state[x-1][y-1].getState() != State.EMPTY && state[x-1][y-1].getState() == State.WHITE) {
-                validmoves.add(new Coordinate(x - 1, y - 1));
-            }
-            if(state[x+1][y-1].getState() != State.EMPTY && state[x+1][y-1].getState() == State.WHITE) {
-
-                validmoves.add(new Coordinate(x + 1, y - 1));
-            }
-        }
-        */
-
+	}
 }
 
 

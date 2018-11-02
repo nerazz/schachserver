@@ -3,43 +3,62 @@ package pieces;
 import board.Board;
 import board.Coordinate;
 import board.Field;
+import board.State;
 import players.PlayerColor;
 
 public class Knight extends Piece {
 
-
 	private PlayerColor color;
-	private boolean hasMoved = false;
-	private Coordinate current_coordinate;
-	private Coordinate new_coordinate;
 
 
 	public Knight(PlayerColor color, Coordinate current) {
+
 		super(color, current);
 	}
 
 
 	public void validmove() {
 
-		Field[][] state = getBoard().getState();
-		int x = current_coordinate.getX();
-		int y = current_coordinate.getY();
 
-      /*  if (color == PlayerColor.WHITE) {
-            if( )
+		Field[][] fields = getBoard().getState();
+		int x = getCurrent().getX();
+		int y = getCurrent().getY();
+		State state;
+		if (color == PlayerColor.WHITE) {
+			state = State.WHITE;
 
-                validmoves.add(new Coordinate(x + 1, y + 1));
-            validmoves.add(new Coordinate(x + 2,y + 2));
-            validmoves.add(new Coordinate(x + 3, y + 3));
-        } else {
+		} else {
+			state = State.BLACK;
+		}
 
-            validmoves.add(new Coordinate(x, y - 1));
-            validmoves.add(new Coordinate(x - 1,y - 1));
-            validmoves.add(new Coordinate(x + 1,y + 1));
-        }
-        */
+		if (x + 1 <= 7 && y + 2 <= 7 && (fields[x + 1][y + 2].getState() == State.EMPTY || fields[x + 1][y + 2].getState() != state)) {
+			validmoves.add(new Coordinate(x + 1, y + 2));
+		}
+		if (x + 2 <= 7 && y + 1 <= 7 && (fields[x + 2][y + 1].getState() == State.EMPTY || fields[x + 2][y + 1].getState() != state)) {
+			validmoves.add(new Coordinate(x + 2, y + 1));
+		}
+		if (x + 2 <= 7 && y - 1 >= 0 && (fields[x + 2][y - 1].getState() == State.EMPTY || fields[x + 2][y - 1].getState() != state)) {
+			validmoves.add(new Coordinate(x + 2, y - 1));
+		}
+		if (x + 1 <= 7 && y - 2 >= 0 && (fields[x + 1][y - 2].getState() == State.EMPTY || fields[x + 1][y - 2].getState() != state)) {
+			validmoves.add(new Coordinate(x + 1, y - 2));
+		}
+		if (x - 2 >= 0 && y - 1 >= 0 && (fields[x - 2][y - 1].getState() == State.EMPTY || fields[x - 2][y - 1].getState() != state)) {
+			validmoves.add(new Coordinate(x - 2, y - 1));
+		}
+		if (x - 1 >= 0 && y - 2 >= 0 && (fields[x - 1][y - 2].getState() == State.EMPTY || fields[x - 1][y - 2].getState() != state)) {
+			validmoves.add(new Coordinate(x - 1, y - 2));
+		}
+		if (x - 1 >= 0 && y + 2 <= 7 && (fields[x - 1][y + 2].getState() == State.EMPTY || fields[x - 1][y + 2].getState() != state)) {
+			validmoves.add(new Coordinate(x - 1, y + 2));
+		}
+		if (x - 2 >= 0 && y + 1 <= 7 && (fields[x + -2][y + 1].getState() == State.EMPTY || fields[x - 2][y + 1].getState() != state)) {
+			validmoves.add(new Coordinate(x - 2, y + 1));
+		}
+
 
 	}
+
 
 }
 
