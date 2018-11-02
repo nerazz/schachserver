@@ -1,20 +1,30 @@
 package board;
 
 
+import players.Player;
+
 /**
  * created on: 02.11.18
  */
 
 public class Board {
-    private Field[][] fields = new Field[8][8];
+    private final Field[][] state = new Field[8][8];
+    private final Player white;
+    private final Player black;
 
-    public void init() {
+    public Board(Player white, Player black) {
+        this.white = white;
+        this.black = black;
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                fields[i][j] = new Field(i, j);
-
+                state[i][j] = new Field(i, j);
             }
         }
+    }
+
+    public Field[][] getState() {
+        return state.clone();
     }
 
     @Override
@@ -25,7 +35,7 @@ public class Board {
                 if (j == 0) {
                     board.append(i+1).append(" ");
                 }
-                board.append(fields[i][j].toString());
+                board.append(state[i][j].toString());
             }
             board.append("\n");
         }

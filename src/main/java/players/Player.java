@@ -11,4 +11,8 @@ public class Player { //IDEA: Black, White extends Player?
     public Player (PlayerColor color) {
         this.color = color;
     }
+
+    public PlayerColor getColor() {
+        return color;
+    }
 }

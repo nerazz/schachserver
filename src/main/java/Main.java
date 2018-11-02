@@ -7,7 +7,6 @@ public class Main {
         Player white = new Player(PlayerColor.WHITE);
         Player black = new Player(PlayerColor.BLACK);
         Board b = new Board();
-        b.init();
         System.out.println(b.toString());
     }
 }
