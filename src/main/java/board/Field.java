@@ -23,6 +23,10 @@ public class Field {
 		this.piece = piece;
 	}
 
+	public void setState(State state) {
+		this.state = state;
+	}
+
 	public Piece getPiece() {
 		return piece;
 	}

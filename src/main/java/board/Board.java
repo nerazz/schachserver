@@ -72,19 +72,51 @@ public class Board {
 		}
 	}
 
+	public Piece getPiece(Coordinate coordinate) {
+		System.out.println(state[coordinate.getX()][coordinate.getY()].getPiece());
+		return state[coordinate.getX()][coordinate.getY()].getPiece();//FIXME: nullchecks & co
+	}
+
 	public Field[][] getState() {
 		return state.clone();
+	}
+
+	public void move(Piece piece, Coordinate dest) {
+		if (/*piece.valid(dest)*/ true) {
+			Coordinate current = piece.getCurrent();
+			Field field = state[current.getX()][current.getY()];
+			field.setPiece(null);
+			field.setState(State.EMPTY);
+			piece.setPosition(dest);
+			field = state[dest.getX()][dest.getY()];
+			field.setPiece(piece);
+			State state = (piece.getColor() == PlayerColor.WHITE) ? State.WHITE : State.BLACK;//TODO: enums besser überlegen
+			field.setState(state);
+		} else {
+			System.out.println("ERROR in Board.move()");//TODO: logger
+		}
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder board = new StringBuilder();
+		/*for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				if (j == 0) {
+					board.append(8-i).append(" ");
+				}
+				board.append(state[7-i][j].toString());
+			}
+			board.append("\n");
+		}
+		board.append("   A  B  C  D  E  F  G  H");
+		return board.toString();StringBuilder board = new StringBuilder();*/
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (j == 0) {
-					board.append(7-i).append(" ");
+					board.append(i+1).append(" ");
 				}
-				board.append(state[7-i][j].toString());
+				board.append(state[i][j].toString());
 			}
 			board.append("\n");
 		}

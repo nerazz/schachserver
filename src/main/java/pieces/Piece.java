@@ -32,6 +32,11 @@ public abstract class Piece {
 		board = b;
 	}
 
+	public void setPosition(Coordinate c) {
+		current_coordinate = c;
+		//FIXME: hasMoved wofür? muss vielleicht hier true gesetzt werden
+	}
+
 	public Coordinate getCurrent() {
 		return current_coordinate;
 	}
