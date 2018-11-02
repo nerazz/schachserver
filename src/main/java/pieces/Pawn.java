@@ -10,9 +10,7 @@ public class Pawn extends Piece {
     public boolean hasMoved;
     public Coordinate current_coordinate;
     public Coordinate new_coordinate;
-
-    private Coordinates[] validmoves;
-
+    
 
     public Pawn(String color){
         this.color = color;
