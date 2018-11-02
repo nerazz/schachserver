@@ -1,31 +1,62 @@
 package pieces;
 
+import board.Board;
+import board.Coordinate;
+import board.Field;
+import board.State;
+import players.Player;
+import players.PlayerColor;
+
 /**
  * created on: 02.11.18
  */
 
 public class Pawn extends Piece {
 
-    public String color;
-    public boolean hasMoved;
-    public Coordinate current_coordinate;
-    public Coordinate new_coordinate;
-    
+    private PlayerColor color;
+    private boolean hasMoved = false;
+    private Coordinate current_coordinate;
+    private Coordinate new_coordinate;
 
-    public Pawn(String color){
+
+    public Pawn(PlayerColor color, Board board){
         this.color = color;
-        this.hasMoved = false;
+        setBoard(board);
     }
 
-   public boolean valid (Coodinate xy) {
-       if (validmoves.contains(xy))
-           return true;
-       else return false;
+
+
+
+   public void validmove() {
+
+        Field[][] state = getBoard().getState();
+       int x = current_coordinate.getX();
+       int y = current_coordinate.getY();
+
+       if (color == PlayerColor.WHITE) {
+           if(state[x][y+1].getState() == State.EMPTY) {
+               validmoves.add(new Coordinate(x, y + 1));
+           }
+            if(state[x+1][y+1].getState() != State.EMPTY && state[x+1][y+1].getState() == State.BLACK) {
+                validmoves.add(new Coordinate(x + 1, y + 1));
+            }
+           if(state[x-1][y+1].getState() != State.EMPTY && state[x-1][y+1].getState() == State.BLACK) {
+               validmoves.add(new Coordinate(x - 1, y + 1));
+           }
+       } else {
+           if(state[x][y-1].getState() == State.EMPTY) {
+               validmoves.add(new Coordinate(x, y - 1));
+           }
+           if(state[x-1][y-1].getState() != State.EMPTY && state[x-1][y-1].getState() == State.WHITE) {
+               validmoves.add(new Coordinate(x - 1, y - 1));
+           }
+           if(state[x+1][y-1].getState() != State.EMPTY && state[x+1][y-1].getState() == State.WHITE) {
+
+               validmoves.add(new Coordinate(x + 1, y - 1));
+           }
+       }
+
    }
-
-   if(color.equals("white")){
-       validmoves[0] = current_coordinates
-    }
 
 
 

@@ -8,16 +8,16 @@ public class Coordinate {
     private final int x;
     private final int y;
 
-    Coordinate(int x, int y) {
+    public Coordinate(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    int getX() {
+    public int getX() {
         return x;
     }
 
-    int getY() {
+    public int getY() {
         return y;
     }
 
