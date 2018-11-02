@@ -8,27 +8,22 @@ import players.PlayerColor;
 public class Knight extends Piece {
 
 
-
-    private PlayerColor color;
-    private boolean hasMoved = false;
-    private Coordinate current_coordinate;
-    private Coordinate new_coordinate;
-
+	private PlayerColor color;
+	private boolean hasMoved = false;
+	private Coordinate current_coordinate;
+	private Coordinate new_coordinate;
 
 
-    public Knight(PlayerColor color, Coordinate current) {
-        super(color, current);
-    }
+	public Knight(PlayerColor color, Coordinate current) {
+		super(color, current);
+	}
 
 
+	public void validmove() {
 
-
-
-    public void validmove() {
-
-        Field[][] state = getBoard().getState();
-        int x = current_coordinate.getX();
-        int y = current_coordinate.getY();
+		Field[][] state = getBoard().getState();
+		int x = current_coordinate.getX();
+		int y = current_coordinate.getY();
 
       /*  if (color == PlayerColor.WHITE) {
             if( )
@@ -44,7 +39,7 @@ public class Knight extends Piece {
         }
         */
 
-    }
+	}
 
 }
 

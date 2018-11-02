@@ -13,16 +13,15 @@ import players.PlayerColor;
 
 public class Bishop extends Piece {
 
-    private PlayerColor color;
-    private boolean hasMoved = false;
-    private Coordinate current_coordinate;
-    private Coordinate new_coordinate;
+	private PlayerColor color;
+	private boolean hasMoved = false;
+	private Coordinate current_coordinate;
+	private Coordinate new_coordinate;
 
 
-
-    public Bishop(PlayerColor color, Coordinate current) {
-        super(color, current);
-    }
+	public Bishop(PlayerColor color, Coordinate current) {
+		super(color, current);
+	}
 
 
 /*
