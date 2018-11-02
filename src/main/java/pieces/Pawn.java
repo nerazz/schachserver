@@ -13,15 +13,11 @@ import players.PlayerColor;
 
 public class Pawn extends Piece {
 
-    private PlayerColor color;
-    private boolean hasMoved = false;
-    private Coordinate current_coordinate;
-    private Coordinate new_coordinate;
 
 
-    public Pawn(PlayerColor color, Board board){
-        this.color = color;
-        setBoard(board);
+
+    public Pawn(PlayerColor color, Board board, Coordinate current) {
+        super(color, board, current);
     }
 
 
@@ -30,10 +26,10 @@ public class Pawn extends Piece {
    public void validmove() {
 
         Field[][] state = getBoard().getState();
-       int x = current_coordinate.getX();
-       int y = current_coordinate.getY();
+       int x = getCurrent().getX();
+       int y = getCurrent().getY();
 
-       if (color == PlayerColor.WHITE) {
+       if (getColor() == PlayerColor.WHITE) {
            if(state[x][y+1].getState() == State.EMPTY) {
                validmoves.add(new Coordinate(x, y + 1));
            }

@@ -2,6 +2,7 @@ package pieces;
 
 import board.Board;
 import board.Coordinate;
+import board.Field;
 import players.PlayerColor;
 
 public class Knight extends Piece {
@@ -14,17 +15,18 @@ public class Knight extends Piece {
     private Coordinate new_coordinate;
 
 
-    public Knight(PlayerColor color, Board board){
-        this.color = color;
-        setBoard(board);
+
+    public Knight(PlayerColor color, Board board, Coordinate current) {
+        super(color, board, current);
     }
+
 
 
 
 
     public void validmove() {
 
-
+        Field[][] state = getBoard().getState();
         int x = current_coordinate.getX();
         int y = current_coordinate.getY();
 
