@@ -23,17 +23,36 @@ public class Pawn extends Piece {
 		int y = pos.getY();
 		Position current = getPosition();
 		Board b = getBoard();
+
+
+
 		/*int x = getPosition().getX();
 		int y = getPosition().getY();*/
 
 		if (getColor() == Color.WHITE) {
 			//TODO: check if in range
-			if (pos.getY() == current.getY() + 1 && b.get(pos).isEmpty()) {
+			if (y == current.getY() + 1 && x == current.getX() && b.get(pos).isEmpty()) {
 				//TODO: check if empty
 				hasMoved = true;
 				return true;
 			}
+			if (y == current.getY() + 1 && (x == current.getX() + 1 || x == current.getX() - 1) && b.get(pos).getPiece().getColor() == Color.BLACK){
+				hasMoved = true;
+				return true;
+			}
 		}
+
+		else {
+			if (y == current.getY() - 1 && x == current.getX() && b.get(pos).isEmpty()) {
+				hasMoved = true;
+				return true;
+			}
+			if (y == current.getY() + 1 && (x == current.getX() + 1 || x == current.getX() - 1) && b.get(pos).getPiece().getColor() == Color.BLACK){
+				hasMoved = true;
+				return true;
+			}
+		}
+
 		return false;
 /*
 				validMoves.add(new Position(x, y+1));
