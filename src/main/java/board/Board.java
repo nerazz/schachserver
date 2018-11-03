@@ -24,12 +24,12 @@ public class Board {
 	public void init() {
 		Piece.setBoard(this);
 		for (int i = 0; i < 8; i++) {
-			add("pawn", PlayerColor.WHITE, 1, i);
-			add("pawn", PlayerColor.BLACK, 6, i);
+			add("pawn", PlayerColor.WHITE, i, 1);
+			add("pawn", PlayerColor.BLACK, i, 6);
 		}
 		add("rook", PlayerColor.WHITE, 0, 0);
-		add("rook", PlayerColor.BLACK, 7, 0);
-		add("king", PlayerColor.WHITE, 0, 0);
+		add("rook", PlayerColor.BLACK, 0, 7);
+		add("king", PlayerColor.WHITE, 3, 1);//d2
 
 	}
 
@@ -44,22 +44,22 @@ public class Board {
 		Position coord = new Position(x, y);
 		switch (p) {
 			case "pawn":
-				state[x][y].put(new Pawn(color, coord));
+				get(x, y).put(new Pawn(color, coord));
 				break;
 			case "knight":
-				state[x][y].put(new Knight(color, coord));
+				get(x, y).put(new Knight(color, coord));
 				break;
 			case "bishop":
-				state[x][y].put(new Bishop(color, coord));
+				get(x, y).put(new Bishop(color, coord));
 				break;
 			case "rook":
-				state[x][y].put(new Rook(color, coord));
+				get(x, y).put(new Rook(color, coord));
 				break;
 			case "queen":
-				state[x][y].put(new Queen(color, coord));
+				get(x, y).put(new Queen(color, coord));
 				break;
 			case "king":
-				state[x][y].put(new King(color, coord));
+				get(x,y).put(new King(color, coord));
 				break;
 			default:
 				System.out.println("ERROR in Board.add()");//TODO: LOGGER
@@ -74,7 +74,7 @@ public class Board {
 	}
 
 	public Field get(int x, int y) {//TODO: clone returnen; statt getState und state[][] benutzen
-		return state[y][x];//durch umgedrehtes Array x & y vertauscht?
+		return state[y][7-x];//durch umgedrehtes Array x & y vertauscht?
 	}
 
 	public Field[][] getState() {//TODO: durch get ersetzen
@@ -82,7 +82,7 @@ public class Board {
 	}
 
 	public void move(Piece piece, Position dest) {
-		if (/*piece.valid(dest)*/ true) {
+		if (/*piece.valid(dest)*/true) {
 			Position current = piece.getCurrent();
 			Field field = state[current.getX()][current.getY()];
 			field.setPiece(null);

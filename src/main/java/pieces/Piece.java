@@ -50,6 +50,7 @@ public abstract class Piece {
 	}
 
 	public boolean valid(Position xy) {
+		System.out.println("valid moves for " + this.current_position + ": " + validmoves);
 		if (validmoves.contains(xy)) {
 
 			return true;
