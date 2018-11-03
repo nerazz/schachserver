@@ -20,14 +20,13 @@ public class Board {
 				squares[i][j] = new Square(new Position(j, 7-i));
 			}
 		}
-		init();
+		Piece.setBoard(this);
 	}
 
-	private void init() {
-		Piece.setBoard(this);
+	public Board addPieces() {
 		add(Color.WHITE);
 		add(Color.BLACK);
-
+		return this;
 	}
 
 	private void add(Color color) {
@@ -59,9 +58,9 @@ public class Board {
 
 	}
 
-	/*private void set(Position pos, Piece piece) {
+	public void set(Piece piece, Color color, ) {
 		get(p).setPiece();
-	}*/
+	}
 
 	public Piece getPiece(Position position) {
 		//System.out.println(squares[position.getX()][position.getY()].getPiece());
