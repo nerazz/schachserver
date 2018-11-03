@@ -58,7 +58,7 @@ public class Board {
 
 	}
 
-	public void set(Piece piece, Color color, ) {
+	public void set(Piece piece, Color color, ) {//TODO: switch mit enum zum createn
 		get(p).setPiece();
 	}
 
