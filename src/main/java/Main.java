@@ -1,6 +1,5 @@
 import board.Board;
-import board.Position;
-import input.Console;
+import io.Console;
 
 public class Main {
 	public static void main(String[] args) {
@@ -9,7 +8,7 @@ public class Main {
 
 		Console.init();
 
-		for(;;) {
+		/*for(;;) {
 			int[] nums = Console.readMove();
 			Position source = new Position(nums[0], nums[1]);
 			Position dest = new Position(nums[2], nums[3]);
@@ -17,6 +16,7 @@ public class Main {
 			System.out.println("dest: " + dest.toString());
 			b.move(b.getPiece(source), dest);
 			System.out.println(b.toString());
-		}
+		}*/
+		System.out.println(b.save());
 	}
 }

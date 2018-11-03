@@ -1,6 +1,8 @@
 package board;
 
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import pieces.*;
 import players.Color;
 
@@ -10,6 +12,7 @@ import players.Color;
 
 public class Board {
 	private final Square[][] squares = new Square[8][8];//[x][y]
+
 
 	public Board() {
 		for (int i = 0; i < 8; i++) {
@@ -85,6 +88,25 @@ public class Board {
 		} else {
 			System.out.println("ERROR in Board.move()");//TODO: logger
 		}
+	}
+
+	public void load(String boardState) {//TODO: parse from json (vor allem für tests?)
+		Gson gson = new GsonBuilder().create();
+		BoardState bs = gson.fromJson(boardState, BoardState.class);
+		System.out.println(bs.getState());
+	}
+
+	public String save() {
+		BoardState bs = new BoardState();
+		String[][] state = new String[8][8];
+		for (int i = 0; i < 8; i++) {
+			for (int j = 0; j < 8; j++) {
+				state[i][j] = squares[i][j].toString();
+			}
+		}
+		bs.setState(state);
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		return gson.toJson(bs);
 	}
 
 	@Override
