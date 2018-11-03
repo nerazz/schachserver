@@ -49,7 +49,7 @@ public class Board {
 	}
 
 	public void move(Piece piece, Position dest) {
-		if (/*piece.isValid(dest)*/true) {
+		if (piece.isValid(dest)) {
 			Position current = piece.getPosition();
 			Square square = get(current);
 			square.setPiece(null);

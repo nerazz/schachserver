@@ -23,6 +23,10 @@ public class Square {
 		return piece;
 	}
 
+	public boolean isEmpty() {
+		return piece == null;
+	}
+
 	public Position getPos() {
 		return pos;
 	}
