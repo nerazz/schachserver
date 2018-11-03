@@ -22,17 +22,43 @@ public class Board {
 
 	private void init() {
 		Piece.setBoard(this);
-		Position p;
-		for (int i = 0; i < 8; i++) {
-			p = new Position(i, 1);
-			get(p).setPiece(new Pawn(Color.WHITE, p));
-			p = new Position(i, 6);
-			get(p).setPiece(new Pawn(Color.BLACK, p));
-		}
-		p = new Position(0, 0);
-		get(p).setPiece(new Rook(Color.WHITE, p));
+		add(Color.WHITE);
+		add(Color.BLACK);
 
 	}
+
+	private void add(Color color) {
+		Position p;
+		int row;
+		row = (color == Color.WHITE) ? 1 : 6;
+
+		for (int i = 0; i < 8; i++) {
+			p = new Position(i, row);
+			get(p).setPiece(new Pawn(color, p));
+		}
+		row = (color == Color.WHITE) ? 0 : 7;
+		p = new Position(0, row);
+		get(p).setPiece(new Rook(color, p));
+		p = new Position(7, row);
+		get(p).setPiece(new Rook(color, p));
+		p = new Position(1, row);
+		get(p).setPiece(new Knight(color, p));
+		p = new Position(6, row);
+		get(p).setPiece(new Knight(color, p));
+		p = new Position(2, row);
+		get(p).setPiece(new Bishop(color, p));
+		p = new Position(5, row);
+		get(p).setPiece(new Bishop(color, p));
+		p = new Position(3, row);
+		get(p).setPiece(new Queen(color, p));
+		p = new Position(4, row);
+		get(p).setPiece(new King(color, p));
+
+	}
+
+	/*private void set(Position pos, Piece piece) {
+		get(p).setPiece();
+	}*/
 
 	public Piece getPiece(Position position) {
 		//System.out.println(squares[position.getX()][position.getY()].getPiece());
@@ -64,17 +90,6 @@ public class Board {
 	@Override
 	public String toString() {
 		StringBuilder board = new StringBuilder();
-		/*for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				if (j == 0) {
-					board.append(8-i).append(" ");
-				}
-				board.append(squares[7-i][j].toString());
-			}
-			board.append("\n");
-		}
-		board.append("   A  B  C  D  E  F  G  H");
-		return board.toString();StringBuilder board = new StringBuilder();*/
 		for (int i = 7; i >= 0; i--) {
 			for (int j = 0; j < 8; j++) {
 				if (j == 0) {
@@ -84,7 +99,7 @@ public class Board {
 			}
 			board.append("\n");
 		}
-		board.append("   A  B  C  D  E  F  G  H");
+		board.append("   \t\t A\t\t\t    B\t\t\t   C\t\t\t  D\t\t\t    E\t\t\t   F\t\t\t   G\t\t\t   H");
 		return board.toString();
 	}
 }
