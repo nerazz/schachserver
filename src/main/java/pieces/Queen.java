@@ -1,13 +1,12 @@
 package pieces;
 
-import board.Board;
-import board.Coordinate;
+import board.Position;
 import players.PlayerColor;
 
 public class Queen extends Piece {
 
 
-	public Queen(PlayerColor color, Coordinate current) {
+	public Queen(PlayerColor color, Position current) {
 		super(color, current);
 	}
 

@@ -11,16 +11,11 @@ import players.PlayerColor;
 
 public class Board {
 	private final Field[][] state = new Field[8][8];//[x][y]
-	private final Player white;
-	private final Player black;
 
-	public Board(Player white, Player black) {
-		this.white = white;
-		this.black = black;
-
+	public Board() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				state[i][j] = new Field(i, j);
+				state[i][j] = new Field(new Position(i, j));
 			}
 		}
 		init();
@@ -34,6 +29,7 @@ public class Board {
 		}
 		add("rook", PlayerColor.WHITE, 0, 0);
 		add("rook", PlayerColor.BLACK, 7, 0);
+		add("king", PlayerColor.WHITE, 0, 0);
 
 	}
 
@@ -45,7 +41,7 @@ public class Board {
     }*/
 
 	private void add(String p, PlayerColor color, int x, int y) {//IDEA wäre nicer mit Piece-factory-pattern
-		Coordinate coord = new Coordinate(x, y);
+		Position coord = new Position(x, y);
 		switch (p) {
 			case "pawn":
 				state[x][y].put(new Pawn(color, coord));
@@ -66,32 +62,36 @@ public class Board {
 				state[x][y].put(new King(color, coord));
 				break;
 			default:
-				System.out.println("ERROR in Board.java in add()");//TODO: LOGGER
+				System.out.println("ERROR in Board.add()");//TODO: LOGGER
 
 
 		}
 	}
 
-	public Piece getPiece(Coordinate coordinate) {
-		System.out.println(state[coordinate.getX()][coordinate.getY()].getPiece());
-		return state[coordinate.getX()][coordinate.getY()].getPiece();//FIXME: nullchecks & co
+	public Piece getPiece(Position position) {
+		System.out.println(state[position.getX()][position.getY()].getPiece());
+		return state[position.getX()][position.getY()].getPiece();//FIXME: nullchecks & co
 	}
 
-	public Field[][] getState() {
+	public Field get(int x, int y) {//TODO: clone returnen; statt getState und state[][] benutzen
+		return state[y][x];//durch umgedrehtes Array x & y vertauscht?
+	}
+
+	public Field[][] getState() {//TODO: durch get ersetzen
 		return state.clone();
 	}
 
-	public void move(Piece piece, Coordinate dest) {
+	public void move(Piece piece, Position dest) {
 		if (/*piece.valid(dest)*/ true) {
-			Coordinate current = piece.getCurrent();
+			Position current = piece.getCurrent();
 			Field field = state[current.getX()][current.getY()];
 			field.setPiece(null);
-			field.setState(State.EMPTY);
+			field.setOwner(Owner.EMPTY);
 			piece.setPosition(dest);
 			field = state[dest.getX()][dest.getY()];
 			field.setPiece(piece);
-			State state = (piece.getColor() == PlayerColor.WHITE) ? State.WHITE : State.BLACK;//TODO: enums besser überlegen
-			field.setState(state);
+			Owner owner = (piece.getColor() == PlayerColor.WHITE) ? Owner.WHITE : Owner.BLACK;//TODO: enums besser überlegen
+			field.setOwner(owner);
 		} else {
 			System.out.println("ERROR in Board.move()");//TODO: logger
 		}
@@ -111,7 +111,7 @@ public class Board {
 		}
 		board.append("   A  B  C  D  E  F  G  H");
 		return board.toString();StringBuilder board = new StringBuilder();*/
-		for (int i = 0; i < 8; i++) {
+		for (int i = 7; i >= 0; i--) {
 			for (int j = 0; j < 8; j++) {
 				if (j == 0) {
 					board.append(i+1).append(" ");

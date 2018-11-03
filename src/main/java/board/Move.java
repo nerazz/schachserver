@@ -8,5 +8,5 @@ import pieces.Piece;
 
 public class Move {//TODO: besser machen, überhaupt notwendig?
 	public Piece piece;
-	public Coordinate coordinate;
+	public Position position;
 }

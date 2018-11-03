@@ -1,10 +1,8 @@
 package pieces;
 
-import board.Board;
-import board.Coordinate;
+import board.Owner;
+import board.Position;
 import board.Field;
-import board.State;
-import players.Player;
 import players.PlayerColor;
 
 /**
@@ -14,7 +12,7 @@ import players.PlayerColor;
 public class Pawn extends Piece {
 
 
-	public Pawn(PlayerColor color, Coordinate current) {
+	public Pawn(PlayerColor color, Position current) {
 		super(color, current);
 	}
 
@@ -26,25 +24,25 @@ public class Pawn extends Piece {
 		int y = getCurrent().getY();
 
 		if (getColor() == PlayerColor.WHITE) {
-			if (state[x][y + 1].getState() == State.EMPTY) {
-				validmoves.add(new Coordinate(x, y + 1));
+			if (state[x][y + 1].getOwner() == Owner.EMPTY) {
+				validmoves.add(new Position(x, y + 1));
 			}
-			if (state[x + 1][y + 1].getState() != State.EMPTY && state[x + 1][y + 1].getState() == State.BLACK) {
-				validmoves.add(new Coordinate(x + 1, y + 1));
+			if (state[x + 1][y + 1].getOwner() != Owner.EMPTY && state[x + 1][y + 1].getOwner() == Owner.BLACK) {
+				validmoves.add(new Position(x + 1, y + 1));
 			}
-			if (state[x - 1][y + 1].getState() != State.EMPTY && state[x - 1][y + 1].getState() == State.BLACK) {
-				validmoves.add(new Coordinate(x - 1, y + 1));
+			if (state[x - 1][y + 1].getOwner() != Owner.EMPTY && state[x - 1][y + 1].getOwner() == Owner.BLACK) {
+				validmoves.add(new Position(x - 1, y + 1));
 			}
 		} else {
-			if (state[x][y - 1].getState() == State.EMPTY) {
-				validmoves.add(new Coordinate(x, y - 1));
+			if (state[x][y - 1].getOwner() == Owner.EMPTY) {
+				validmoves.add(new Position(x, y - 1));
 			}
-			if (state[x - 1][y - 1].getState() != State.EMPTY && state[x - 1][y - 1].getState() == State.WHITE) {
-				validmoves.add(new Coordinate(x - 1, y - 1));
+			if (state[x - 1][y - 1].getOwner() != Owner.EMPTY && state[x - 1][y - 1].getOwner() == Owner.WHITE) {
+				validmoves.add(new Position(x - 1, y - 1));
 			}
-			if (state[x + 1][y - 1].getState() != State.EMPTY && state[x + 1][y - 1].getState() == State.WHITE) {
+			if (state[x + 1][y - 1].getOwner() != Owner.EMPTY && state[x + 1][y - 1].getOwner() == Owner.WHITE) {
 
-				validmoves.add(new Coordinate(x + 1, y - 1));
+				validmoves.add(new Position(x + 1, y - 1));
 			}
 		}
 

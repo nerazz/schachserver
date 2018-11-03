@@ -1,8 +1,7 @@
 package pieces;
 
 import board.Board;
-import board.Coordinate;
-import players.Player;
+import board.Position;
 import players.PlayerColor;
 
 import java.util.ArrayList;
@@ -15,16 +14,16 @@ import java.util.List;
 public abstract class Piece {
 
 	private static Board board; // Jeder Spieler hat eogenes Board um Spielstand zu überprüfen
-	public List<Coordinate> validmoves = new ArrayList<Coordinate>();
+	public List<Position> validmoves = new ArrayList<Position>();
 	private final PlayerColor color;
 	private boolean hasMoved = false;
-	private Coordinate current_coordinate;
-	private Coordinate new_coordinate;
+	private Position current_position;
+	private Position new_position;
 
 
-	protected Piece(PlayerColor color, Coordinate current) {
+	protected Piece(PlayerColor color, Position current) {
 		this.color = color;
-		current_coordinate = current;
+		current_position = current;
 
 	}
 
@@ -32,13 +31,13 @@ public abstract class Piece {
 		board = b;
 	}
 
-	public void setPosition(Coordinate c) {
-		current_coordinate = c;
+	public void setPosition(Position c) {
+		current_position = c;
 		//FIXME: hasMoved wofür? muss vielleicht hier true gesetzt werden
 	}
 
-	public Coordinate getCurrent() {
-		return current_coordinate;
+	public Position getCurrent() {
+		return current_position;
 	}
 
 
@@ -50,7 +49,7 @@ public abstract class Piece {
 		return board;
 	}
 
-	public boolean valid(Coordinate xy) {
+	public boolean valid(Position xy) {
 		if (validmoves.contains(xy)) {
 
 			return true;

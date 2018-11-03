@@ -4,13 +4,12 @@ package board;
  * created on: 02.11.18
  */
 
-public class Coordinate {
-	private final int x;
-	private final int y;
+public class Position {
+	private final int x, y;//letter, number
 
-	public Coordinate(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public Position(int letter, int number) {
+		this.x = number;//wegen umgedrehtem Array müssen hier x & y vertauscht sein
+		this.y = letter;
 	}
 
 	public int getX() {
@@ -23,10 +22,10 @@ public class Coordinate {
 
 	@Override
 	public boolean equals(Object o) {
-		if (!(o instanceof Coordinate)) {
+		if (!(o instanceof Position)) {
 			return false;
 		}
-		return (((Coordinate)o).x == x && ((Coordinate)o).y == y);
+		return (((Position)o).x == x && ((Position)o).y == y);
 	}
 
 	@Override

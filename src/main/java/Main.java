@@ -1,22 +1,22 @@
 import board.Board;
-import board.Coordinate;
+import board.Position;
 import input.Console;
 import players.Player;
 import players.PlayerColor;
 
 public class Main {
 	public static void main(String[] args) {
-		Player white = new Player(PlayerColor.WHITE);
-		Player black = new Player(PlayerColor.BLACK);
-		Board b = new Board(white, black);
+		Board b = new Board();
 		System.out.println(b.toString());
 
 		Console.init();
 
 		for(;;) {
 			int[] nums = Console.readMove();
-			Coordinate source = new Coordinate(nums[0], nums[1]);
-			Coordinate dest = new Coordinate(nums[2], nums[3]);
+			Position source = new Position(nums[0], nums[1]);
+			Position dest = new Position(nums[2], nums[3]);
+			System.out.println("source: " + source.toString());
+			System.out.println("dest: " + dest.toString());
 			b.move(b.getPiece(source), dest);
 			System.out.println(b.toString());
 		}

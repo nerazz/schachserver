@@ -8,45 +8,47 @@ import players.PlayerColor;
  */
 
 public class Field {
-	private State state = State.EMPTY;
+	private Owner owner = Owner.EMPTY;
 	private Piece piece = null;
-	private final Coordinate coord;
+	private final Position pos;
 	//coords?
 	//color?
-	//state?
+	//owner?
 
-	Field(int x, int y) {
-		coord = new Coordinate(x, y);
+	Field(Position pos) {
+		this.pos = pos;
 	}
 
 	public void setPiece(Piece piece) {
 		this.piece = piece;
 	}
 
-	public void setState(State state) {
-		this.state = state;
+	public void setOwner(Owner owner) {
+		this.owner = owner;
 	}
 
 	public Piece getPiece() {
 		return piece;
 	}
 
-	public Coordinate getCoord() {
-		return coord;
+	public Position getPos() {
+		return pos;
 	}
 
-	public State getState() {
-		return state;
+	public Owner getOwner() {
+		return owner;
 	}
 
 	public void put(Piece piece) {
-		state = (piece.getColor() == PlayerColor.WHITE) ? State.WHITE : State.BLACK;
+		owner = (piece.getColor() == PlayerColor.WHITE) ? Owner.WHITE : Owner.BLACK;
 		this.piece = piece;
 	}
 
 	@Override
 	public String toString() {
-		//return state == null ? "[ ]" : "[" + state.toString() + "]";
-		return piece == null ? "[" + state.toString() + "]" : "[" + piece.toString() + "]";
+		String s = " [" + pos.toString();
+		s += piece == null ? ":EMPTY] " : ":" + piece.toString() + "] ";
+		return s;
+		//return piece == null ? "[" + owner.toString() + "]" : "[" + piece.toString() + "]";
 	}
 }

@@ -1,9 +1,8 @@
 package pieces;
 
-import board.Board;
-import board.Coordinate;
+import board.Owner;
+import board.Position;
 import board.Field;
-import board.State;
 import players.PlayerColor;
 
 public class Knight extends Piece {
@@ -11,7 +10,7 @@ public class Knight extends Piece {
 	private PlayerColor color;
 
 
-	public Knight(PlayerColor color, Coordinate current) {
+	public Knight(PlayerColor color, Position current) {
 
 		super(color, current);
 	}
@@ -23,37 +22,37 @@ public class Knight extends Piece {
 		Field[][] fields = getBoard().getState();
 		int x = getCurrent().getX();
 		int y = getCurrent().getY();
-		State state;
+		Owner owner;
 		if (color == PlayerColor.WHITE) {
-			state = State.WHITE;
+			owner = Owner.WHITE;
 
 		} else {
-			state = State.BLACK;
+			owner = Owner.BLACK;
 		}
 
-		if (x + 1 <= 7 && y + 2 <= 7 && (fields[x + 1][y + 2].getState() == State.EMPTY || fields[x + 1][y + 2].getState() != state)) {
-			validmoves.add(new Coordinate(x + 1, y + 2));
+		if (x + 1 <= 7 && y + 2 <= 7 && (fields[x + 1][y + 2].getOwner() == Owner.EMPTY || fields[x + 1][y + 2].getOwner() != owner)) {
+			validmoves.add(new Position(x + 1, y + 2));
 		}
-		if (x + 2 <= 7 && y + 1 <= 7 && (fields[x + 2][y + 1].getState() == State.EMPTY || fields[x + 2][y + 1].getState() != state)) {
-			validmoves.add(new Coordinate(x + 2, y + 1));
+		if (x + 2 <= 7 && y + 1 <= 7 && (fields[x + 2][y + 1].getOwner() == Owner.EMPTY || fields[x + 2][y + 1].getOwner() != owner)) {
+			validmoves.add(new Position(x + 2, y + 1));
 		}
-		if (x + 2 <= 7 && y - 1 >= 0 && (fields[x + 2][y - 1].getState() == State.EMPTY || fields[x + 2][y - 1].getState() != state)) {
-			validmoves.add(new Coordinate(x + 2, y - 1));
+		if (x + 2 <= 7 && y - 1 >= 0 && (fields[x + 2][y - 1].getOwner() == Owner.EMPTY || fields[x + 2][y - 1].getOwner() != owner)) {
+			validmoves.add(new Position(x + 2, y - 1));
 		}
-		if (x + 1 <= 7 && y - 2 >= 0 && (fields[x + 1][y - 2].getState() == State.EMPTY || fields[x + 1][y - 2].getState() != state)) {
-			validmoves.add(new Coordinate(x + 1, y - 2));
+		if (x + 1 <= 7 && y - 2 >= 0 && (fields[x + 1][y - 2].getOwner() == Owner.EMPTY || fields[x + 1][y - 2].getOwner() != owner)) {
+			validmoves.add(new Position(x + 1, y - 2));
 		}
-		if (x - 2 >= 0 && y - 1 >= 0 && (fields[x - 2][y - 1].getState() == State.EMPTY || fields[x - 2][y - 1].getState() != state)) {
-			validmoves.add(new Coordinate(x - 2, y - 1));
+		if (x - 2 >= 0 && y - 1 >= 0 && (fields[x - 2][y - 1].getOwner() == Owner.EMPTY || fields[x - 2][y - 1].getOwner() != owner)) {
+			validmoves.add(new Position(x - 2, y - 1));
 		}
-		if (x - 1 >= 0 && y - 2 >= 0 && (fields[x - 1][y - 2].getState() == State.EMPTY || fields[x - 1][y - 2].getState() != state)) {
-			validmoves.add(new Coordinate(x - 1, y - 2));
+		if (x - 1 >= 0 && y - 2 >= 0 && (fields[x - 1][y - 2].getOwner() == Owner.EMPTY || fields[x - 1][y - 2].getOwner() != owner)) {
+			validmoves.add(new Position(x - 1, y - 2));
 		}
-		if (x - 1 >= 0 && y + 2 <= 7 && (fields[x - 1][y + 2].getState() == State.EMPTY || fields[x - 1][y + 2].getState() != state)) {
-			validmoves.add(new Coordinate(x - 1, y + 2));
+		if (x - 1 >= 0 && y + 2 <= 7 && (fields[x - 1][y + 2].getOwner() == Owner.EMPTY || fields[x - 1][y + 2].getOwner() != owner)) {
+			validmoves.add(new Position(x - 1, y + 2));
 		}
-		if (x - 2 >= 0 && y + 1 <= 7 && (fields[x + -2][y + 1].getState() == State.EMPTY || fields[x - 2][y + 1].getState() != state)) {
-			validmoves.add(new Coordinate(x - 2, y + 1));
+		if (x - 2 >= 0 && y + 1 <= 7 && (fields[x + -2][y + 1].getOwner() == Owner.EMPTY || fields[x - 2][y + 1].getOwner() != owner)) {
+			validmoves.add(new Position(x - 2, y + 1));
 		}
 
 
