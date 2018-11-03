@@ -58,7 +58,7 @@ public abstract class Piece {
 	@Override
 	public String toString() {
 		String s = (color == Color.WHITE) ? "W" : "B";
-		s += this.getClass().getSimpleName();
+		s += this.getClass().getSimpleName().substring(0,4);
 		return s;
 	}
 
