@@ -14,7 +14,7 @@ public class Board {
 	public Board() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				squares[i][j] = new Square(new Position(7-i, j));
+				squares[i][j] = new Square(new Position(j, 7-i));
 			}
 		}
 		init();
@@ -41,7 +41,7 @@ public class Board {
 	}
 
 	public Square get(int x, int y) {//TODO: clone returnen; statt getState und squares[][] benutzen
-		return squares[7-x][y];//durch umgedrehtes Array x & y vertauscht?
+		return squares[7-y][x];//durch umgedrehtes Array x & y vertauscht?
 	}
 
 	public Square get(Position position) {
@@ -51,10 +51,10 @@ public class Board {
 	public void move(Piece piece, Position dest) {
 		if (/*piece.isValid(dest)*/true) {
 			Position current = piece.getPosition();
-			Square square = squares[current.getX()][current.getY()];
+			Square square = get(current);
 			square.setPiece(null);
 			piece.setPosition(dest);
-			square = squares[dest.getX()][dest.getY()];//FIXME: muss transformiert werden
+			square = get(dest);//FIXME: muss transformiert werden
 			square.setPiece(piece);
 		} else {
 			System.out.println("ERROR in Board.move()");//TODO: logger
@@ -80,7 +80,7 @@ public class Board {
 				if (j == 0) {
 					board.append(i+1).append(" ");
 				}
-				board.append(get(i,j).toString());
+				board.append(get(j, i).toString());
 			}
 			board.append("\n");
 		}
