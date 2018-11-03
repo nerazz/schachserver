@@ -1,8 +1,6 @@
 import board.Board;
 import board.Position;
 import input.Console;
-import players.Player;
-import players.PlayerColor;
 
 public class Main {
 	public static void main(String[] args) {

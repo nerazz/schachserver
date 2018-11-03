@@ -8,8 +8,8 @@ public class Position {
 	private final int x, y;//letter, number TODO: x to char?
 
 	public Position(int letter, int number) {
-		this.x = 7-number;//wegen umgedrehtem Array müssen hier x & y vertauscht sein?
-		this.y = letter;
+		this.x = letter;//wegen umgedrehtem Array müssen hier x & y vertauscht sein?
+		this.y = number;
 	}
 
 	public int getX() {

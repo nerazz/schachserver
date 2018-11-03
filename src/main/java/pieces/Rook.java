@@ -1,12 +1,12 @@
 package pieces;
 
 import board.Position;
-import players.PlayerColor;
+import players.Color;
 
 public class Rook extends Piece {
 
 
-	public Rook(PlayerColor color, Position current) {
+	public Rook(Color color, Position current) {
 		super(color, current);
 	}
 

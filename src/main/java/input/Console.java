@@ -25,7 +25,6 @@ public class Console {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//String in = System.console().readLine();
 		//a3 e4
 		char[] chars = in.toCharArray();
 		int[] nums = new int[4];

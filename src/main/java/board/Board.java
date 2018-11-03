@@ -2,96 +2,60 @@ package board;
 
 
 import pieces.*;
-import players.Player;
-import players.PlayerColor;
+import players.Color;
 
 /**
  * created on: 02.11.18
  */
 
 public class Board {
-	private final Field[][] state = new Field[8][8];//[x][y]
+	private final Square[][] squares = new Square[8][8];//[x][y]
 
 	public Board() {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				state[i][j] = new Field(new Position(i, j));
+				squares[i][j] = new Square(new Position(7-i, j));
 			}
 		}
 		init();
 	}
 
-	public void init() {
+	private void init() {
 		Piece.setBoard(this);
+		Position p;
 		for (int i = 0; i < 8; i++) {
-			add("pawn", PlayerColor.WHITE, i, 1);
-			add("pawn", PlayerColor.BLACK, i, 6);
+			p = new Position(i, 1);
+			get(p).setPiece(new Pawn(Color.WHITE, p));
+			p = new Position(i, 6);
+			get(p).setPiece(new Pawn(Color.BLACK, p));
 		}
-		add("rook", PlayerColor.WHITE, 0, 0);
-		add("rook", PlayerColor.BLACK, 0, 7);
-		add("king", PlayerColor.WHITE, 3, 1);//d2
+		p = new Position(0, 0);
+		get(p).setPiece(new Rook(Color.WHITE, p));
 
-	}
-
-	//put(new Rook(PlayerColor.WHITE, 0, 0);
-	//add(Rook, PlayerColor.WHITE, 0, 0);
-    /*private void put(Piece piece, int x, int y) {
-        state[x][y].put()
-
-    }*/
-
-	private void add(String p, PlayerColor color, int x, int y) {//IDEA wäre nicer mit Piece-factory-pattern
-		Position coord = new Position(x, y);
-		switch (p) {
-			case "pawn":
-				get(x, y).put(new Pawn(color, coord));
-				break;
-			case "knight":
-				get(x, y).put(new Knight(color, coord));
-				break;
-			case "bishop":
-				get(x, y).put(new Bishop(color, coord));
-				break;
-			case "rook":
-				get(x, y).put(new Rook(color, coord));
-				break;
-			case "queen":
-				get(x, y).put(new Queen(color, coord));
-				break;
-			case "king":
-				get(x,y).put(new King(color, coord));
-				break;
-			default:
-				System.out.println("ERROR in Board.add()");//TODO: LOGGER
-
-
-		}
 	}
 
 	public Piece getPiece(Position position) {
-		System.out.println(state[position.getX()][position.getY()].getPiece());
-		return state[position.getX()][position.getY()].getPiece();//FIXME: nullchecks & co
+		//System.out.println(squares[position.getX()][position.getY()].getPiece());
+		System.out.println(get(position));
+		return get(position).getPiece();//FIXME: nullchecks & co
 	}
 
-	public Field get(int x, int y) {//TODO: clone returnen; statt getState und state[][] benutzen
-		return state[y][7-x];//durch umgedrehtes Array x & y vertauscht?
+	public Square get(int x, int y) {//TODO: clone returnen; statt getState und squares[][] benutzen
+		return squares[7-x][y];//durch umgedrehtes Array x & y vertauscht?
 	}
 
-	public Field[][] getState() {//TODO: durch get ersetzen
-		return state.clone();
+	public Square get(Position position) {
+		return squares[7-position.getY()][position.getX()];
 	}
 
 	public void move(Piece piece, Position dest) {
-		if (/*piece.valid(dest)*/true) {
-			Position current = piece.getCurrent();
-			Field field = state[current.getX()][current.getY()];
-			field.setPiece(null);
-			field.setOwner(Owner.EMPTY);
+		if (/*piece.isValid(dest)*/true) {
+			Position current = piece.getPosition();
+			Square square = squares[current.getX()][current.getY()];
+			square.setPiece(null);
 			piece.setPosition(dest);
-			field = state[dest.getX()][dest.getY()];
-			field.setPiece(piece);
-			Owner owner = (piece.getColor() == PlayerColor.WHITE) ? Owner.WHITE : Owner.BLACK;//TODO: enums besser überlegen
-			field.setOwner(owner);
+			square = squares[dest.getX()][dest.getY()];//FIXME: muss transformiert werden
+			square.setPiece(piece);
 		} else {
 			System.out.println("ERROR in Board.move()");//TODO: logger
 		}
@@ -105,7 +69,7 @@ public class Board {
 				if (j == 0) {
 					board.append(8-i).append(" ");
 				}
-				board.append(state[7-i][j].toString());
+				board.append(squares[7-i][j].toString());
 			}
 			board.append("\n");
 		}
@@ -116,7 +80,7 @@ public class Board {
 				if (j == 0) {
 					board.append(i+1).append(" ");
 				}
-				board.append(state[i][j].toString());
+				board.append(get(i,j).toString());
 			}
 			board.append("\n");
 		}

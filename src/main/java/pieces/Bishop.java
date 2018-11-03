@@ -1,9 +1,8 @@
 package pieces;
 
-import board.Owner;
 import board.Position;
-import board.Field;
-import players.PlayerColor;
+import board.Square;
+import players.Color;
 
 /**
  * created on: 02.11.18
@@ -11,34 +10,34 @@ import players.PlayerColor;
 
 public class Bishop extends Piece {
 
-	private PlayerColor color;
+	private Color color;
 
 
-	public Bishop(PlayerColor color, Position current) {
+	public Bishop(Color color, Position current) {
 		super(color, current);
 	}
 
 
-	public void validmove() {
+	/*public void validmove() {
 
 		Owner owner;
-		if (color == PlayerColor.WHITE) {
+		if (color == Color.WHITE) {
 			owner = Owner.WHITE;
 
 		} else {
 			owner = Owner.BLACK;
 		}
 
-		Field[][] fields = getBoard().getState();
-		int x = getCurrent().getX();
-		int y = getCurrent().getY();
+		Square[][] squares = getBoard().getState();
+		int x = getPosition().getX();
+		int y = getPosition().getY();
 		boolean stop = true;
 		int a = 1;
 		while (x + a <= 7 && y + a <= 7 && stop) {
-			if (fields[x + a][y + a].getOwner() == Owner.EMPTY) {
-				validmoves.add(new Position(x + a, y + a));
-			} else if (fields[x + a][y + a].getOwner() != owner) {
-				validmoves.add(new Position(x + a, y + a));
+			if (squares[x + a][y + a].getOwner() == Owner.EMPTY) {
+				validMoves.add(new Position(x + a, y + a));
+			} else if (squares[x + a][y + a].getOwner() != owner) {
+				validMoves.add(new Position(x + a, y + a));
 				stop = false;
 			} else {
 				stop = false;
@@ -49,10 +48,10 @@ public class Bishop extends Piece {
 		stop = true;
 		a = 1;
 		while (x - a >= 0 && y - a >= 0 && stop) {
-			if (fields[x + a][y + a].getOwner() == Owner.EMPTY) {
-				validmoves.add(new Position(x - a, y - a));
-			} else if (fields[x - a][y - a].getOwner() != owner) {
-				validmoves.add(new Position(x - a, y - a));
+			if (squares[x + a][y + a].getOwner() == Owner.EMPTY) {
+				validMoves.add(new Position(x - a, y - a));
+			} else if (squares[x - a][y - a].getOwner() != owner) {
+				validMoves.add(new Position(x - a, y - a));
 				stop = false;
 			} else {
 				stop = false;
@@ -64,10 +63,10 @@ public class Bishop extends Piece {
 		stop = true;
 		a = 1;
 		while (x + a <= 7 && y - a >= 0 && stop) {
-			if (fields[x + a][y - a].getOwner() == Owner.EMPTY) {
-				validmoves.add(new Position(x + a, y - a));
-			} else if (fields[x + a][y - a].getOwner() != owner) {
-				validmoves.add(new Position(x + a, y - a));
+			if (squares[x + a][y - a].getOwner() == Owner.EMPTY) {
+				validMoves.add(new Position(x + a, y - a));
+			} else if (squares[x + a][y - a].getOwner() != owner) {
+				validMoves.add(new Position(x + a, y - a));
 				stop = false;
 			} else {
 				stop = false;
@@ -78,11 +77,11 @@ public class Bishop extends Piece {
 		stop = true;
 		a = 1;
 		while (x - a >= 0 && y + a <= 7 && stop) {
-			if (fields[x - a][y + a].getOwner() == Owner.EMPTY) {
-				validmoves.add(new Position(x - a, y + a));
+			if (squares[x - a][y + a].getOwner() == Owner.EMPTY) {
+				validMoves.add(new Position(x - a, y + a));
 
-			} else if (fields[x - a][y + a].getOwner() != owner) {
-				validmoves.add(new Position(x - a, y + a));
+			} else if (squares[x - a][y + a].getOwner() != owner) {
+				validMoves.add(new Position(x - a, y + a));
 				stop = false;
 			} else {
 				stop = false;
@@ -91,7 +90,7 @@ public class Bishop extends Piece {
 		}
 
 
-	}
+	}*/
 }
 
 

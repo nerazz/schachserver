@@ -5,14 +5,14 @@ package players;
  */
 
 public class Player { //IDEA: Black, White extends Player?
-	private final PlayerColor color;
+	private final Color color;
 
 
-	public Player (PlayerColor color) {
+	public Player (Color color) {
 		this.color = color;
 	}
 
-	public PlayerColor getColor() {
+	public Color getColor() {
 		return color;
 	}
 }

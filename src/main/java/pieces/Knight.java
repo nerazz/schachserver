@@ -1,62 +1,61 @@
 package pieces;
 
-import board.Owner;
 import board.Position;
-import board.Field;
-import players.PlayerColor;
+import board.Square;
+import players.Color;
 
 public class Knight extends Piece {
 
-	private PlayerColor color;
+	private Color color;
 
 
-	public Knight(PlayerColor color, Position current) {
+	public Knight(Color color, Position current) {
 
 		super(color, current);
 	}
 
 
-	public void validmove() {
+	/*public void validmove() {
 
 
-		Field[][] fields = getBoard().getState();
-		int x = getCurrent().getX();
-		int y = getCurrent().getY();
+		Square[][] squares = getBoard().getState();
+		int x = getPosition().getX();
+		int y = getPosition().getY();
 		Owner owner;
-		if (color == PlayerColor.WHITE) {
+		if (color == Color.WHITE) {
 			owner = Owner.WHITE;
 
 		} else {
 			owner = Owner.BLACK;
 		}
 
-		if (x + 1 <= 7 && y + 2 <= 7 && (fields[x + 1][y + 2].getOwner() == Owner.EMPTY || fields[x + 1][y + 2].getOwner() != owner)) {
-			validmoves.add(new Position(x + 1, y + 2));
+		if (x + 1 <= 7 && y + 2 <= 7 && (squares[x + 1][y + 2].getOwner() == Owner.EMPTY || squares[x + 1][y + 2].getOwner() != owner)) {
+			validMoves.add(new Position(x + 1, y + 2));
 		}
-		if (x + 2 <= 7 && y + 1 <= 7 && (fields[x + 2][y + 1].getOwner() == Owner.EMPTY || fields[x + 2][y + 1].getOwner() != owner)) {
-			validmoves.add(new Position(x + 2, y + 1));
+		if (x + 2 <= 7 && y + 1 <= 7 && (squares[x + 2][y + 1].getOwner() == Owner.EMPTY || squares[x + 2][y + 1].getOwner() != owner)) {
+			validMoves.add(new Position(x + 2, y + 1));
 		}
-		if (x + 2 <= 7 && y - 1 >= 0 && (fields[x + 2][y - 1].getOwner() == Owner.EMPTY || fields[x + 2][y - 1].getOwner() != owner)) {
-			validmoves.add(new Position(x + 2, y - 1));
+		if (x + 2 <= 7 && y - 1 >= 0 && (squares[x + 2][y - 1].getOwner() == Owner.EMPTY || squares[x + 2][y - 1].getOwner() != owner)) {
+			validMoves.add(new Position(x + 2, y - 1));
 		}
-		if (x + 1 <= 7 && y - 2 >= 0 && (fields[x + 1][y - 2].getOwner() == Owner.EMPTY || fields[x + 1][y - 2].getOwner() != owner)) {
-			validmoves.add(new Position(x + 1, y - 2));
+		if (x + 1 <= 7 && y - 2 >= 0 && (squares[x + 1][y - 2].getOwner() == Owner.EMPTY || squares[x + 1][y - 2].getOwner() != owner)) {
+			validMoves.add(new Position(x + 1, y - 2));
 		}
-		if (x - 2 >= 0 && y - 1 >= 0 && (fields[x - 2][y - 1].getOwner() == Owner.EMPTY || fields[x - 2][y - 1].getOwner() != owner)) {
-			validmoves.add(new Position(x - 2, y - 1));
+		if (x - 2 >= 0 && y - 1 >= 0 && (squares[x - 2][y - 1].getOwner() == Owner.EMPTY || squares[x - 2][y - 1].getOwner() != owner)) {
+			validMoves.add(new Position(x - 2, y - 1));
 		}
-		if (x - 1 >= 0 && y - 2 >= 0 && (fields[x - 1][y - 2].getOwner() == Owner.EMPTY || fields[x - 1][y - 2].getOwner() != owner)) {
-			validmoves.add(new Position(x - 1, y - 2));
+		if (x - 1 >= 0 && y - 2 >= 0 && (squares[x - 1][y - 2].getOwner() == Owner.EMPTY || squares[x - 1][y - 2].getOwner() != owner)) {
+			validMoves.add(new Position(x - 1, y - 2));
 		}
-		if (x - 1 >= 0 && y + 2 <= 7 && (fields[x - 1][y + 2].getOwner() == Owner.EMPTY || fields[x - 1][y + 2].getOwner() != owner)) {
-			validmoves.add(new Position(x - 1, y + 2));
+		if (x - 1 >= 0 && y + 2 <= 7 && (squares[x - 1][y + 2].getOwner() == Owner.EMPTY || squares[x - 1][y + 2].getOwner() != owner)) {
+			validMoves.add(new Position(x - 1, y + 2));
 		}
-		if (x - 2 >= 0 && y + 1 <= 7 && (fields[x + -2][y + 1].getOwner() == Owner.EMPTY || fields[x - 2][y + 1].getOwner() != owner)) {
-			validmoves.add(new Position(x - 2, y + 1));
+		if (x - 2 >= 0 && y + 1 <= 7 && (squares[x + -2][y + 1].getOwner() == Owner.EMPTY || squares[x - 2][y + 1].getOwner() != owner)) {
+			validMoves.add(new Position(x - 2, y + 1));
 		}
 
 
-	}
+	}*/
 
 
 }

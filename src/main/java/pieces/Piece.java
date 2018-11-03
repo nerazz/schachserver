@@ -2,7 +2,7 @@ package pieces;
 
 import board.Board;
 import board.Position;
-import players.PlayerColor;
+import players.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +13,15 @@ import java.util.List;
 
 public abstract class Piece {
 
-	private static Board board; // Jeder Spieler hat eogenes Board um Spielstand zu überprüfen
-	public List<Position> validmoves = new ArrayList<Position>();
-	private final PlayerColor color;
-	private boolean hasMoved = false;
-	private Position current_position;
-	private Position new_position;
+	private static Board board; // Jeder Spieler hat eogenes Board um Spielstand zu überprüfen?
+	List<Position> validMoves = new ArrayList<>();
+	private final Color color;
+	private Position position;
 
 
-	protected Piece(PlayerColor color, Position current) {
+	protected Piece(Color color, Position position) {
 		this.color = color;
-		current_position = current;
+		this.position = position;
 
 	}
 
@@ -32,26 +30,25 @@ public abstract class Piece {
 	}
 
 	public void setPosition(Position c) {
-		current_position = c;
-		//FIXME: hasMoved wofür? muss vielleicht hier true gesetzt werden
+		position = c;
 	}
 
-	public Position getCurrent() {
-		return current_position;
+	public Position getPosition() {
+		return position;
 	}
 
 
-	public PlayerColor getColor() {
+	public Color getColor() {
 		return color;
 	}
 
 	Board getBoard() {
 		return board;
-	}
+	}//TODO: möglichst ohne board
 
-	public boolean valid(Position xy) {
-		System.out.println("valid moves for " + this.current_position + ": " + validmoves);
-		if (validmoves.contains(xy)) {
+	public boolean isValid(Position xy) {
+		System.out.println("isValid moves for " + this.position + ": " + validMoves);
+		if (validMoves.contains(xy)) {
 
 			return true;
 		}
@@ -60,9 +57,17 @@ public abstract class Piece {
 
 	@Override
 	public String toString() {
-		String s = "";
-		s = (color == PlayerColor.WHITE) ? "W" : "B";
+		String s = (color == Color.WHITE) ? "W" : "B";
 		s += this.getClass().getSimpleName();
 		return s;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (!(o instanceof Piece)) {
+			return false;
+		}
+		Piece p = (Piece)o;
+		return (color == p.getColor() && position.equals(p.getPosition()));
 	}
 }
