@@ -43,10 +43,10 @@ class BoardTest {
 
 	@Test
 	void get() {
-		assertEquals(f0, b.get(0,0));
-		assertEquals(f1, b.get(2,5));
-		assertEquals(f2, b.get(7,3));
-		assertEquals(f3, b.get(6,6));
+		assertEquals(f0, b.getSquare(0,0));
+		assertEquals(f1, b.getSquare(2,5));
+		assertEquals(f2, b.getSquare(7,3));
+		assertEquals(f3, b.getSquare(6,6));
 	}
 
 	@Test

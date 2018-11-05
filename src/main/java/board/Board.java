@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import pieces.*;
 import players.Color;
 
+import static pieces.PiecesEnum.*;
+
 /**
  * created on: 02.11.18
  */
@@ -23,79 +25,92 @@ public class Board {
 		Piece.setBoard(this);
 	}
 
-	public Board addPieces() {
-		add(Color.WHITE);
-		add(Color.BLACK);
+	public Board initWithPieces() {
+		addColor(Color.WHITE);
+		addColor(Color.BLACK);
 		return this;
 	}
 
-	private void add(Color color) {
+	private void addColor(Color color) {
 		Position p;
 		int row;
 		row = (color == Color.WHITE) ? 1 : 6;
 
 		for (int i = 0; i < 8; i++) {
 			p = new Position(i, row);
-			get(p).setPiece(new Pawn(color, p));
+			getSquare(p).setPiece(new Pawn(color, p));
 		}
 		row = (color == Color.WHITE) ? 0 : 7;
-		p = new Position(0, row);
-		get(p).setPiece(new Rook(color, p));
-		p = new Position(7, row);
-		get(p).setPiece(new Rook(color, p));
-		p = new Position(1, row);
-		get(p).setPiece(new Knight(color, p));
-		p = new Position(6, row);
-		get(p).setPiece(new Knight(color, p));
-		p = new Position(2, row);
-		get(p).setPiece(new Bishop(color, p));
-		p = new Position(5, row);
-		get(p).setPiece(new Bishop(color, p));
-		p = new Position(3, row);
-		get(p).setPiece(new Queen(color, p));
-		p = new Position(4, row);
-		get(p).setPiece(new King(color, p));
-
+		addPiece(ROOK, color, 0, row);
+		addPiece(KNIGHT, color, 1, row);
+		addPiece(BISHOP, color, 2, row);
+		addPiece(QUEEN, color, 3, row);
+		addPiece(KING, color, 4, row);
+		addPiece(BISHOP, color, 5, row);
+		addPiece(KNIGHT, color, 6, row);
+		addPiece(ROOK, color, 7, row);
 	}
 
-	public void set(Piece piece, Color color, ) {//TODO: switch mit enum zum createn
-		get(p).setPiece();
+	public void addPiece(PiecesEnum piece, Color color, Position pos) {//TODO: switch mit enum zum createn
+		switch (piece) {
+			case PAWN:
+				getSquare(pos).setPiece(new Pawn(color, pos));
+				break;
+			case KNIGHT:
+				getSquare(pos).setPiece(new Knight(color, pos));
+				break;
+			case BISHOP:
+				getSquare(pos).setPiece(new Bishop(color, pos));
+				break;
+			case ROOK:
+				getSquare(pos).setPiece(new Rook(color, pos));
+				break;
+			case QUEEN:
+				getSquare(pos).setPiece(new Queen(color, pos));
+				break;
+			case KING:
+				getSquare(pos).setPiece(new King(color, pos));
+		}
+	}
+
+	public void addPiece(PiecesEnum piece, Color color, int x, int y) {
+		addPiece(piece, color, new Position(x, y));
 	}
 
 	public Piece getPiece(Position position) {
 		//System.out.println(squares[position.getX()][position.getY()].getPiece());
-		System.out.println(get(position));
-		return get(position).getPiece();//FIXME: nullchecks & co
+		System.out.println(getSquare(position));
+		return getSquare(position).getPiece();//FIXME: nullchecks & co
 	}
 
-	public Square get(int x, int y) {//TODO: clone returnen; statt getState und squares[][] benutzen
+	public Square getSquare(int x, int y) {//TODO: clone returnen; statt getState und squares[][] benutzen
 		return squares[7-y][x];//durch umgedrehtes Array x & y vertauscht?
 	}
 
-	public Square get(Position position) {
+	public Square getSquare(Position position) {
 		return squares[7-position.getY()][position.getX()];
 	}
 
 	public void move(Piece piece, Position dest) {
 		if (piece.isValid(dest)) {
 			Position current = piece.getPosition();
-			Square square = get(current);
+			Square square = getSquare(current);
 			square.setPiece(null);
 			piece.setPosition(dest);
-			square = get(dest);//FIXME: muss transformiert werden
+			square = getSquare(dest);//FIXME: muss transformiert werden
 			square.setPiece(piece);
 		} else {
 			System.out.println("ERROR in Board.move()");//TODO: logger
 		}
 	}
 
-	public void load(String boardState) {//TODO: parse from json (vor allem für tests?)
+	public void loadState(String boardState) {//TODO: parse from json (vor allem für tests?)
 		Gson gson = new GsonBuilder().create();
 		BoardState bs = gson.fromJson(boardState, BoardState.class);
 		System.out.println(bs.getState());
 	}
 
-	public String save() {
+	public String saveState() {
 		BoardState bs = new BoardState();
 		String[][] state = new String[8][8];
 		for (int i = 0; i < 8; i++) {
@@ -116,7 +131,7 @@ public class Board {
 				if (j == 0) {
 					board.append(i+1).append(" ");
 				}
-				board.append(get(j, i).toString());
+				board.append(getSquare(j, i).toString());
 			}
 			board.append("\n");
 		}
