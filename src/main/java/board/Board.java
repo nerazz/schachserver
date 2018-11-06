@@ -70,6 +70,9 @@ public class Board {
 				break;
 			case KING:
 				getSquare(pos).setPiece(new King(color, pos));
+			/*	break;
+			case EMPTY:
+				getSquare(pos).setPiece(null);*/
 		}
 	}
 
@@ -77,10 +80,16 @@ public class Board {
 		addPiece(piece, color, new Position(x, y));
 	}
 
+	public void clearSquare(int x, int y) {
+		getSquare(x, y).setPiece(null);
+	}
+
 	public Piece getPiece(Position position) {
-		//System.out.println(squares[position.getX()][position.getY()].getPiece());
-		System.out.println(getSquare(position));
 		return getSquare(position).getPiece();//FIXME: nullchecks & co
+	}
+
+	public Piece getPiece(int x, int y) {
+		return getPiece(new Position(x, y));
 	}
 
 	public Square getSquare(int x, int y) {//TODO: clone returnen; statt getState und squares[][] benutzen
@@ -91,7 +100,7 @@ public class Board {
 		return squares[7-position.getY()][position.getX()];
 	}
 
-	public void move(Piece piece, Position dest) {
+	public void move(Piece piece, Position dest) throws IllegalMoveException {
 		if (piece.isValid(dest)) {
 			Position current = piece.getPosition();
 			Square square = getSquare(current);
@@ -100,8 +109,13 @@ public class Board {
 			square = getSquare(dest);//FIXME: muss transformiert werden
 			square.setPiece(piece);
 		} else {
-			System.out.println("ERROR in Board.move()");//TODO: logger
+			//System.out.println("ERROR in Board.move()");//TODO: logger
+			throw new IllegalMoveException("This is not a valid move");
 		}
+	}
+
+	public void move(Piece piece, int x, int y) throws IllegalMoveException{
+		move(piece, new Position(x, y));
 	}
 
 	public void loadState(String boardState) {//TODO: parse from json (vor allem für tests?)

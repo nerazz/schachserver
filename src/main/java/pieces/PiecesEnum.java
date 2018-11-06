@@ -5,6 +5,7 @@ package pieces;
  */
 
 public enum PiecesEnum {
+	EMPTY,//TODO: notwendig?
 	PAWN,
 	KNIGHT,
 	BISHOP,

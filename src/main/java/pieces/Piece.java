@@ -22,7 +22,6 @@ public abstract class Piece {
 	protected Piece(Color color, Position position) {
 		this.color = color;
 		this.position = position;
-
 	}
 
 	public static void setBoard(Board b) {
@@ -46,13 +45,9 @@ public abstract class Piece {
 		return board;
 	}//TODO: möglichst ohne board
 
-	public boolean isValid(Position xy) {
+	public boolean isValid(Position pos) {
 		System.out.println("isValid moves for " + this.position + ": " + validMoves);
-		if (validMoves.contains(xy)) {
-
-			return true;
-		}
-		return false;
+		return validMoves.contains(pos);
 	}
 
 	@Override

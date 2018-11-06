@@ -1,4 +1,5 @@
 import board.Board;
+import board.IllegalMoveException;
 import board.Position;
 import io.Console;
 
@@ -15,7 +16,11 @@ public class Main {
 			Position dest = new Position(nums[2], nums[3]);
 			System.out.println("source: " + source.toString());
 			System.out.println("dest: " + dest.toString());
-			b.move(b.getPiece(source), dest);
+			try {
+				b.move(b.getPiece(source), dest);
+			} catch (IllegalMoveException e) {
+				e.printStackTrace();
+			}
 			System.out.println(b.toString());
 		}
 	}
