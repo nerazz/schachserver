@@ -14,6 +14,10 @@ public class Knight extends Piece {
 		super(color, current);
 	}
 
+	@Override
+	public boolean canMove(Position pos) {
+		return false;
+	}
 
 	/*public void validmove() {
 

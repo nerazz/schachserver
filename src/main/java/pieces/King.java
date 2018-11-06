@@ -16,6 +16,11 @@ public class King extends Piece {
 	}
 
 
+	@Override
+	public boolean canMove(Position pos) {
+		return false;
+	}
+
 	/*public void validmove() {
 
 		Square[][] squares = getBoard().getState();

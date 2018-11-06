@@ -17,7 +17,7 @@ public class Pawn extends Piece {
 
 
 	@Override
-	public boolean isValid(Position pos) {
+	public boolean canMove(Position pos) {
 		int x = pos.getX();
 		int y = pos.getY();
 		Position current = getPosition();

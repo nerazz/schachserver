@@ -40,6 +40,11 @@ class BoardTest {
 	}
 
 	@Test
+	void loadState() {
+
+	}
+
+	@Test
 	void getPiece() {
 		//assertEquals();
 	}

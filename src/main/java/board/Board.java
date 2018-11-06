@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder;
 import pieces.*;
 import players.Color;
 
+import java.util.Arrays;
+
 import static pieces.PiecesEnum.*;
 
 /**
@@ -26,30 +28,19 @@ public class Board {
 	}
 
 	public Board initWithPieces() {
-		addColor(Color.WHITE);
-		addColor(Color.BLACK);
+		String state =
+				  "BRBNBBBQBKBBBNBR"
+				+ "BPBPBPBPBPBPBPBP"
+				+ "EMEMEMEMEMEMEMEM"
+				+ "EMEMEMEMEMEMEMEM"
+				+ "EMEMEMEMEMEMEMEM"
+				+ "EMEMEMEMEMEMEMEM"
+				+ "WPWPWPWPWPWPWPWP"
+				+ "WRWNWBWQWKWBWNWR";
+		loadState(state);
 		return this;
 	}
 
-	private void addColor(Color color) {
-		Position p;
-		int row;
-		row = (color == Color.WHITE) ? 1 : 6;
-
-		for (int i = 0; i < 8; i++) {
-			p = new Position(i, row);
-			getSquare(p).setPiece(new Pawn(color, p));
-		}
-		row = (color == Color.WHITE) ? 0 : 7;
-		addPiece(ROOK, color, 0, row);
-		addPiece(KNIGHT, color, 1, row);
-		addPiece(BISHOP, color, 2, row);
-		addPiece(QUEEN, color, 3, row);
-		addPiece(KING, color, 4, row);
-		addPiece(BISHOP, color, 5, row);
-		addPiece(KNIGHT, color, 6, row);
-		addPiece(ROOK, color, 7, row);
-	}
 
 	public void addPiece(PiecesEnum piece, Color color, Position pos) {//TODO: switch mit enum zum createn
 		switch (piece) {
@@ -101,12 +92,12 @@ public class Board {
 	}
 
 	public void move(Piece piece, Position dest) throws IllegalMoveException {
-		if (piece.isValid(dest)) {
+		if (piece.canMove(dest)) {
 			Position current = piece.getPosition();
 			Square square = getSquare(current);
 			square.setPiece(null);
 			piece.setPosition(dest);
-			square = getSquare(dest);//FIXME: muss transformiert werden
+			square = getSquare(dest);
 			square.setPiece(piece);
 		} else {
 			//System.out.println("ERROR in Board.move()");//TODO: logger
@@ -118,10 +109,46 @@ public class Board {
 		move(piece, new Position(x, y));
 	}
 
-	public void loadState(String boardState) {//TODO: parse from json (vor allem für tests?)
-		Gson gson = new GsonBuilder().create();
-		BoardState bs = gson.fromJson(boardState, BoardState.class);
-		System.out.println(bs.getState());
+	public void loadState(String state) {
+		if (state.length() != 128) {
+			throw new IllegalArgumentException("Illegal size of board");
+		}
+		state = state.toLowerCase();
+		int k = 0;
+		String current;
+		for (int i = 0; i < 8; i++) {
+			for (int j = 7; j >= 0; j--) {
+				current = state.substring(k*2, (k+1)*2);
+				if (current.equals("em")) {
+					k++;
+					continue;
+				}
+				Color color = current.substring(0,1).equals("w") ? Color.WHITE : Color.BLACK;
+				switch (current.substring(1,2)) {
+					case "p":
+						addPiece(PAWN, color, 7-j, 7-i);
+						break;
+					case "n":
+						addPiece(KNIGHT, color, 7-j, 7-i);
+						break;
+					case "b":
+						addPiece(BISHOP, color, 7-j, 7-i);
+						break;
+					case "r":
+						addPiece(ROOK, color, 7-j, 7-i);
+						break;
+					case "q":
+						addPiece(QUEEN, color, 7-j, 7-i);
+						break;
+					case "k":
+						addPiece(KING, color, 7-j, 7-i);
+						break;
+					default:
+						throw new IllegalArgumentException("can't parse given state");
+				}
+				k++;
+			}
+		}
 	}
 
 	public String saveState() {

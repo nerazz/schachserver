@@ -14,7 +14,6 @@ import java.util.List;
 public abstract class Piece {
 
 	private static Board board; // Jeder Spieler hat eogenes Board um Spielstand zu überprüfen?
-	List<Position> validMoves = new ArrayList<>();
 	private final Color color;
 	private Position position;
 
@@ -45,9 +44,10 @@ public abstract class Piece {
 		return board;
 	}//TODO: möglichst ohne board
 
-	public boolean isValid(Position pos) {
-		System.out.println("isValid moves for " + this.position + ": " + validMoves);
-		return validMoves.contains(pos);
+	public abstract boolean canMove(Position pos);
+
+	public boolean canMove(int x, int y) {
+		return canMove(new Position(x, y));
 	}
 
 	@Override

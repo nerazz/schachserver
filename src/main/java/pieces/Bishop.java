@@ -17,6 +17,11 @@ public class Bishop extends Piece {
 		super(color, current);
 	}
 
+	@Override
+	public boolean canMove(Position pos) {
+		return false;
+	}
+
 
 	/*public void validmove() {
 

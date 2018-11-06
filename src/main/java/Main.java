@@ -3,12 +3,13 @@ import board.IllegalMoveException;
 import board.Position;
 import io.Console;
 
+import java.util.Arrays;
+
 public class Main {
 	public static void main(String[] args) {
 		Board b = new Board().initWithPieces();
-		System.out.println(b.toString());
-
 		Console.init();
+		System.out.println(b);
 
 		for(;;) {
 			int[] nums = Console.readMove();

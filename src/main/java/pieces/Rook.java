@@ -10,5 +10,10 @@ public class Rook extends Piece {
 		super(color, current);
 	}
 
+	@Override
+	public boolean canMove(Position pos) {
+		return false;
+	}
+
 
 }
