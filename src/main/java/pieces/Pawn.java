@@ -17,10 +17,13 @@ public class Pawn extends Piece {
 
 
 	@Override
-	public boolean canMove(Position pos) {
-		int x = pos.getX();
-		int y = pos.getY();
-		Position current = getPosition();
+	public boolean canMove(Position dest) {
+		if (getPosition().equals(dest))
+			return false;
+
+		int x = dest.getX();
+		int y = dest.getY();
+		Position src = getPosition();
 		Board b = getBoard();
 
 		int dir = (getColor() == Color.WHITE) ? 1 : -1;
@@ -28,15 +31,14 @@ public class Pawn extends Piece {
 		/*if (!hasMoved) {
 			//TODO: 2 squares
 		}*/
-		if (y != current.getY() + dir)
+		if (y != src.getY() + dir)
 			return false;//wrong direction
 
-		if (x == current.getX() && b.getSquare(pos).isEmpty())
+		if (x == src.getX() && b.getSquare(dest).isEmpty())
 			return true;
 		else
-			return (x == current.getX() + 1 || x == current.getX() - 1)
-					&& b.getSquare(pos).getPiece().getColor() != getColor();
-
+			return (x == src.getX() + 1 || x == src.getX() - 1)
+					&& b.getSquare(dest).getPiece().getColor() != getColor();
 	}
 
 

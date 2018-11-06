@@ -10,92 +10,32 @@ import players.Color;
 
 public class Bishop extends Piece {
 
-	private Color color;
-
-
 	public Bishop(Color color, Position current) {
 		super(color, current);
 	}
 
 	@Override
-	public boolean canMove(Position pos) {
-		return false;
+	public boolean canMove(Position dest) {
+		Position pos = getPosition();
+		if (pos.equals(dest))
+			return false;
+
+		if (!getBoard().getSquare(dest).isEmpty()) {
+			if (getBoard().getSquare(dest).getPiece().getColor() == getColor()) {
+				return false;
+			}
+		}
+
+		int dirX = (dest.getX() < pos.getX()) ? -1 : 1;
+		int dirY = (dest.getY() < pos.getY()) ? -1 : 1;
+
+		while (!pos.equals(dest)) {
+			pos = new Position(pos.getX() + dirX, pos.getY() + dirY);
+			if (pos.getX() < 0 || pos.getX() > 7 || pos.getY() < 0 || pos.getY() > 7)
+				return false;
+			if (!pos.equals(dest) && !getBoard().getSquare(pos).isEmpty())
+				return false;
+		}
+		return true;
 	}
-
-
-	/*public void validmove() {
-
-		Owner owner;
-		if (color == Color.WHITE) {
-			owner = Owner.WHITE;
-
-		} else {
-			owner = Owner.BLACK;
-		}
-
-		Square[][] squares = getBoard().getState();
-		int x = getPosition().getX();
-		int y = getPosition().getY();
-		boolean stop = true;
-		int a = 1;
-		while (x + a <= 7 && y + a <= 7 && stop) {
-			if (squares[x + a][y + a].getOwner() == Owner.EMPTY) {
-				validMoves.add(new Position(x + a, y + a));
-			} else if (squares[x + a][y + a].getOwner() != owner) {
-				validMoves.add(new Position(x + a, y + a));
-				stop = false;
-			} else {
-				stop = false;
-			}
-			a++;
-		}
-
-		stop = true;
-		a = 1;
-		while (x - a >= 0 && y - a >= 0 && stop) {
-			if (squares[x + a][y + a].getOwner() == Owner.EMPTY) {
-				validMoves.add(new Position(x - a, y - a));
-			} else if (squares[x - a][y - a].getOwner() != owner) {
-				validMoves.add(new Position(x - a, y - a));
-				stop = false;
-			} else {
-				stop = false;
-			}
-			a++;
-		}
-
-
-		stop = true;
-		a = 1;
-		while (x + a <= 7 && y - a >= 0 && stop) {
-			if (squares[x + a][y - a].getOwner() == Owner.EMPTY) {
-				validMoves.add(new Position(x + a, y - a));
-			} else if (squares[x + a][y - a].getOwner() != owner) {
-				validMoves.add(new Position(x + a, y - a));
-				stop = false;
-			} else {
-				stop = false;
-			}
-			a++;
-		}
-
-		stop = true;
-		a = 1;
-		while (x - a >= 0 && y + a <= 7 && stop) {
-			if (squares[x - a][y + a].getOwner() == Owner.EMPTY) {
-				validMoves.add(new Position(x - a, y + a));
-
-			} else if (squares[x - a][y + a].getOwner() != owner) {
-				validMoves.add(new Position(x - a, y + a));
-				stop = false;
-			} else {
-				stop = false;
-			}
-			a++;
-		}
-
-
-	}*/
 }
-
-

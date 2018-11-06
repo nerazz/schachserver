@@ -44,7 +44,7 @@ public abstract class Piece {
 		return board;
 	}//TODO: möglichst ohne board
 
-	public abstract boolean canMove(Position pos);
+	public abstract boolean canMove(Position pos);//TODO: moves filtern von xy -> xy (selbes feld)
 
 	public boolean canMove(int x, int y) {
 		return canMove(new Position(x, y));

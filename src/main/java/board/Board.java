@@ -42,33 +42,29 @@ public class Board {
 	}
 
 
-	public void addPiece(PiecesEnum piece, Color color, Position pos) {//TODO: switch mit enum zum createn
+	public Piece addPiece(PiecesEnum piece, Color color, Position pos) {//TODO: switch mit enum zum createn
 		switch (piece) {
 			case PAWN:
-				getSquare(pos).setPiece(new Pawn(color, pos));
-				break;
+				return getSquare(pos).setPiece(new Pawn(color, pos));
 			case KNIGHT:
-				getSquare(pos).setPiece(new Knight(color, pos));
-				break;
+				return getSquare(pos).setPiece(new Knight(color, pos));
 			case BISHOP:
-				getSquare(pos).setPiece(new Bishop(color, pos));
-				break;
+				return getSquare(pos).setPiece(new Bishop(color, pos));
 			case ROOK:
-				getSquare(pos).setPiece(new Rook(color, pos));
-				break;
+				return getSquare(pos).setPiece(new Rook(color, pos));
 			case QUEEN:
-				getSquare(pos).setPiece(new Queen(color, pos));
-				break;
+				return getSquare(pos).setPiece(new Queen(color, pos));
 			case KING:
-				getSquare(pos).setPiece(new King(color, pos));
+				return getSquare(pos).setPiece(new King(color, pos));
 			/*	break;
 			case EMPTY:
 				getSquare(pos).setPiece(null);*/
 		}
+		return null;
 	}
 
-	public void addPiece(PiecesEnum piece, Color color, int x, int y) {
-		addPiece(piece, color, new Position(x, y));
+	public Piece addPiece(PiecesEnum piece, Color color, int x, int y) {
+		return addPiece(piece, color, new Position(x, y));
 	}
 
 	public void clearSquare(int x, int y) {

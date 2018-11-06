@@ -16,18 +16,19 @@ class PawnTest {
 	@BeforeEach
 	void setupBoard() {
 		b = new Board();
-		b.addPiece(PAWN, WHITE, 1, 1);
-		p = b.getPiece(1,1);
+		p = b.addPiece(PAWN, WHITE, 1, 1);
 	}
 
 	@Test
 	void moves() {
+		assertTrue(p.canMove(1,2), "white pawn can move up");
 		b.addPiece(KNIGHT, WHITE, 1,2);
 		assertFalse(p.canMove(1,2), "white pawn blocked by white");
 		b.addPiece(KNIGHT, BLACK, 1,2);
 		assertFalse(p.canMove(1,2), "white pawn blocked by black");
 
 		b.addPiece(PAWN, BLACK, 1, 6);
+		assertTrue(p.canMove(1,4), "black pawn can move down");
 		b.addPiece(KNIGHT, BLACK, 1,5);
 		assertFalse(p.canMove(1,5), "black pawn blocked by black");
 		b.addPiece(KNIGHT, WHITE, 1,5);

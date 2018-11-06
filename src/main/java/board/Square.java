@@ -15,8 +15,8 @@ public class Square {
 		this.pos = pos;
 	}
 
-	public void setPiece(Piece piece) {
-		this.piece = piece;
+	public Piece setPiece(Piece piece) {
+		return this.piece = piece;
 	}
 
 	public Piece getPiece() {
