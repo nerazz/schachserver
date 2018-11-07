@@ -58,5 +58,7 @@ class BishopTest {
 		assertFalse(p.canMove(6,6), "blocked by own color");
 		b.addPiece(QUEEN, BLACK, 5,5);
 		assertFalse(p.canMove(6,6), "blocked by enemy color");
+		b.addPiece(QUEEN, BLACK, 3,4);
+		assertFalse(p.canMove(3,4), "can't take on non-diagonal");
 	}
 }
