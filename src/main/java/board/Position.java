@@ -31,6 +31,6 @@ public class Position {
 	@Override
 	public String toString() {
 		char cx = (char)(x + 65);
-		return String.format("{%c,%d}", cx, y+1);
+		return String.format("(%c,%d)", cx, y+1);
 	}
 }

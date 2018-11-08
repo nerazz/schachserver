@@ -5,6 +5,7 @@ package players;
  */
 
 public enum Color {
+	NONE,
 	WHITE,
 	BLACK
 }

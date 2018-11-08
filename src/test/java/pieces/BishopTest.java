@@ -4,14 +4,14 @@ import board.Board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import static board.Piece.*;
 import static org.junit.jupiter.api.Assertions.*;
-import static pieces.PiecesEnum.*;
 import static players.Color.BLACK;
 import static players.Color.WHITE;
 
 class BishopTest {
 
-	private Board b;
+	/*private Board b;
 	private Piece p;
 
 	@BeforeEach
@@ -60,5 +60,5 @@ class BishopTest {
 		assertFalse(p.canMove(6,6), "blocked by enemy color");
 		b.addPiece(QUEEN, BLACK, 3,4);
 		assertFalse(p.canMove(3,4), "can't take on non-diagonal");
-	}
+	}*/
 }
