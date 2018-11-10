@@ -2,7 +2,6 @@ package board;
 
 import players.Color;
 
-import static players.Color.*;
 import static board.Piece.*;
 
 /**
@@ -11,12 +10,12 @@ import static board.Piece.*;
 
 public class Square {
 	private static Board board;//FIXME: sehr schlecht (z.b. wenn mehrere spiele gleichzeitig -> nur neustes board existiert
-	private final Position pos;
+	private final Position POS;
 	private Piece piece;
 	private Color color;
 
 	Square(Position pos) {
-		this.pos = pos;
+		this.POS = pos;
 	}
 
 	static void init(Board board) {
@@ -33,15 +32,12 @@ public class Square {
 		this.color = color;
 	}
 
-	public boolean pieceCanMoveTo(Position dest) {
-		boolean valid = false;
-		if (piece == Piece.NONE) {
-			return false;
-		}
-		return true;
+	public boolean pieceCanMoveTo(Position dst) {
+		return piece != Piece.NONE;
+		//boolean valid = false;
 		/*switch (piece) {
 			case PAWN:
-				valid = pawn(dest);
+				valid = pawn(dst);
 				break;
 		}
 		return valid;*/
@@ -49,9 +45,9 @@ public class Square {
 
 	public boolean pieceCanMoveTo(int x, int y) {
 		return pieceCanMoveTo(new Position(x, y));
-	}
+	}//IDEA: in board packen, um board in fields zu fixen
 
-	private boolean pawn(Position dest) {
+	private boolean pawn(Position dst) {
 		return false;
 	}
 
@@ -64,7 +60,7 @@ public class Square {
 	}
 
 	public Position getPos() {
-		return pos;
+		return POS;
 	}
 
 	//pawn
@@ -96,8 +92,8 @@ public class Square {
 	//bishop
 	@Override
 	public boolean canMove(Position dest) {
-		Position pos = getPosition();
-		if (pos.equals(dest))
+		Position POS = getPosition();
+		if (POS.equals(dest))
 			return false;
 
 		if (!getBoard().getSquare(dest).isEmpty()) {
@@ -106,14 +102,14 @@ public class Square {
 			}
 		}
 
-		int dirX = (dest.getX() < pos.getX()) ? -1 : 1;
-		int dirY = (dest.getY() < pos.getY()) ? -1 : 1;
+		int dirX = (dest.getX() < POS.getX()) ? -1 : 1;
+		int dirY = (dest.getY() < POS.getY()) ? -1 : 1;
 
-		while (!pos.equals(dest)) {
-			pos = new Position(pos.getX() + dirX, pos.getY() + dirY);
-			if (pos.getX() < 0 || pos.getX() > 7 || pos.getY() < 0 || pos.getY() > 7)
+		while (!POS.equals(dest)) {
+			POS = new Position(POS.getX() + dirX, POS.getY() + dirY);
+			if (POS.getX() < 0 || POS.getX() > 7 || POS.getY() < 0 || POS.getY() > 7)
 				return false;
-			if (!pos.equals(dest) && !getBoard().getSquare(pos).isEmpty())
+			if (!POS.equals(dest) && !getBoard().getSquare(POS).isEmpty())
 				return false;
 		}
 		return true;
@@ -139,6 +135,6 @@ public class Square {
 			return false;
 		}
 		Square f = (Square)o;
-		return (pos.equals(f.getPos()) && piece == f.getPiece() && color == f.getColor());
+		return (POS.equals(f.getPos()) && piece == f.getPiece() && color == f.getColor());
 	}
 }

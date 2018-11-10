@@ -5,19 +5,19 @@ package board;
  */
 
 public class Position {
-	private final int x, y;//letter, number TODO: x to char?
+	private final int X, Y;//letter, number TODO: X to char?
 
 	public Position(int letter, int number) {
-		this.x = letter;//wegen umgedrehtem Array müssen hier x & y vertauscht sein?
-		this.y = number;
+		this.X = letter;//wegen umgedrehtem Array müssen hier X & Y vertauscht sein?
+		this.Y = number;
 	}
 
 	public int getX() {
-		return x;
+		return X;
 	}
 
 	public int getY() {
-		return y;
+		return Y;
 	}
 
 	@Override
@@ -25,12 +25,12 @@ public class Position {
 		if (!(o instanceof Position)) {
 			return false;
 		}
-		return (((Position)o).x == x && ((Position)o).y == y);
+		return (((Position)o).X == X && ((Position)o).Y == Y);
 	}
 
 	@Override
 	public String toString() {
-		char cx = (char)(x + 65);
-		return String.format("(%c,%d)", cx, y+1);
+		char cx = (char)(X + 65);
+		return String.format("(%c,%d)", cx, Y +1);
 	}
 }

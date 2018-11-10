@@ -1,8 +1,6 @@
 package board;
 
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import players.Color;
 
 import static board.Piece.*;
@@ -12,13 +10,13 @@ import static board.Piece.*;
  */
 
 public class Board {
-	private final Square[][] squares = new Square[8][8];//[x][y]
+	private final Square[][] SQUARES = new Square[8][8];//[x][y]
 
 	public Board() {
 		Square.init(this);
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				squares[i][j] = new Square(new Position(j, 7-i));
+				SQUARES[i][j] = new Square(new Position(j, 7-i));
 			}
 		}
 	}
@@ -37,12 +35,12 @@ public class Board {
 		return this;
 	}
 
-	public Square get(int x, int y) {//TODO: clone returnen; statt getState und squares[][] benutzen
-		return squares[7-y][x];//durch umgedrehtes Array x & y vertauscht
+	public Square get(int x, int y) {//TODO: clone returnen; statt getState und SQUARES[][] benutzen
+		return SQUARES[7-y][x];//durch umgedrehtes Array x & y vertauscht
 	}
 
 	public Square get(Position position) {
-		return squares[7-position.getY()][position.getX()];
+		return SQUARES[7-position.getY()][position.getX()];
 	}
 
 	public Piece getPiece(int x, int y) {
@@ -53,24 +51,24 @@ public class Board {
 		return get(x, y).getColor();
 	}
 
-	public boolean move(Position src, Position dest) {
+	public boolean move(Position src, Position dst) {
 		Square square = get(src);
-		if (!square.pieceCanMoveTo(dest)) {
+		if (!square.pieceCanMoveTo(dst)) {
 			return false;
 		}
 		Piece p = square.getPiece();
 		Color c = square.getColor();
 		square.empty();
-		get(dest).put(p, c);
+		get(dst).put(p, c);
 		return true;
 	}
 
-	public boolean isValidMove(Position src, Position dest) {
-		return get(src).pieceCanMoveTo(dest);
+	public boolean isValidMove(Position src, Position dst) {
+		return get(src).pieceCanMoveTo(dst);
 	}
 
-	public boolean isValidMove(int srcX, int srcY, int destX, int destY) {
-		return isValidMove(new Position(srcX, srcY), new Position(destX, destY));
+	public boolean isValidMove(int srcX, int srcY, int dstX, int destY) {
+		return isValidMove(new Position(srcX, srcY), new Position(dstX, destY));
 	}
 
 	public void loadState(String state) {
@@ -122,7 +120,7 @@ public class Board {
 		String[][] state = new String[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				state[i][j] = squares[i][j].toString();
+				state[i][j] = SQUARES[i][j].toString();
 			}
 		}
 		bs.setState(state);

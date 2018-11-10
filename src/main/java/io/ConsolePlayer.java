@@ -1,5 +1,7 @@
 package io;
 
+import players.Player;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,12 +11,11 @@ import java.util.Arrays;
  * created on: 02.11.18
  */
 
-public class Console {
+public class ConsolePlayer extends Player {
 	public static BufferedReader br;
 
 	public static void init() {//FIXME: yikes
 		br = new BufferedReader(new InputStreamReader(System.in));
-
 	}
 
 	public static int[] readMove() {
