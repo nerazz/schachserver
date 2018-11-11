@@ -1,7 +1,5 @@
 package io;
 
-import board.Board;
-
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.HashMap;
@@ -17,11 +15,7 @@ public class Server implements Runnable {
 	private ServerSocket server;
 	private Map<Integer, SocketPlayer> clients = new HashMap<>();
 	private Integer id = 0;
-	private Game game;
-
-	public Server(Game game) {
-		this.game = game;
-	}
+	private Game game = new Game();//TODO: alle 2 player 1 game (gameList?)
 
 	@Override
 	public void run() {
@@ -48,6 +42,10 @@ public class Server implements Runnable {
 	public void closeSocket(Integer id) {
 		clients.remove(id);
 		System.out.println("closed " + id);
+	}
+
+	public String getBoardStateJson() {
+		return game.getBoardStateJson();
 	}
 
 	public void stop() {//TODO: close all clients

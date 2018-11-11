@@ -3,8 +3,6 @@ package io;
 
 import board.Move;
 import board.Position;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import players.Player;
 
 import java.io.BufferedReader;
@@ -34,7 +32,7 @@ public class SocketPlayer extends Player implements Runnable {
 	}
 
 	@Override
-	public void run() {
+	public void run() {//TODO: send status premoved
 		try {
 			System.out.println("start run for " + socket);
 			out = new PrintWriter(socket.getOutputStream(), true);
@@ -64,7 +62,7 @@ public class SocketPlayer extends Player implements Runnable {
 		}
 	}
 
-	/*public void parseMove(String moveToParse) {//JSON-Moves
+	/*public void parseMove(String moveToParse) {//JSON-Moves;TODO: geht locker besser
 		Gson gson = new GsonBuilder().create();
 		JsonMove jsonMove = gson.fromJson(moveToParse, JsonMove.class);
 
@@ -91,16 +89,16 @@ public class SocketPlayer extends Player implements Runnable {
 	}
 
 	@Override
-	public void success() {//TODO: send boardstate
+	public void success() {
 		System.out.println("sending successful");
-		out.println("{status: \"accepted\"}");
+		out.println("{status: \"success\", state: " + server.getBoardStateJson() + "}");
 		setStoredMove(false);
 	}
 
 	@Override
-	public void fail() {//TODO: send boardstate
+	public void fail() {
 		System.out.println("sending fail");
-		out.println("{status: \"refused\"}");
+		out.println("{status: \"refused\", state: " + server.getBoardStateJson() + "}");
 		setStoredMove(false);
 	}
 }

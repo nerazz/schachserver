@@ -5,5 +5,6 @@ public enum GameState {
 	TURN_WHITE,
 	TURN_BLACK,
 	WIN_WHITE,
-	WIN_BLACK
+	WIN_BLACK,
+	STALEMATE
 }

@@ -1,6 +1,7 @@
 package board;
 
 
+import com.google.gson.Gson;
 import players.Color;
 
 import static board.Piece.*;
@@ -13,7 +14,6 @@ public class Board {
 	private final Square[][] SQUARES = new Square[8][8];//[x][y]
 
 	public Board() {
-		Square.init(this);
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				SQUARES[i][j] = new Square(new Position(j, 7-i));
@@ -35,43 +35,29 @@ public class Board {
 		return this;
 	}
 
-	public Square get(int x, int y) {//TODO: clone returnen; statt getState und SQUARES[][] benutzen
+	Square get(int x, int y) {//TODO: clone returnen?
 		return SQUARES[7-y][x];//durch umgedrehtes Array x & y vertauscht
 	}
 
-	public Square get(Position position) {
-		return SQUARES[7-position.getY()][position.getX()];
+	Square get(Position pos) {
+		return get(pos.getX(), pos.getY());
 	}
 
-	public Piece getPiece(int x, int y) {
-		return get(x, y).getPiece();
+	public boolean isValidMove(Move move) {
+		//return PieceLogic.isValid(this, move);//TODO: uncomment when rdy
+		return get(move.getSrc()).getPiece() != Piece.NONE;
 	}
 
-	public Color getColor(int x, int y) {
-		return get(x, y).getColor();
-	}
-
-	public boolean move(Position src, Position dst) {
-		Square square = get(src);
-		if (!square.pieceCanMoveTo(dst)) {
+	public boolean move(Move move) {
+		if(!isValidMove(move))
 			return false;
-		}
-		Piece p = square.getPiece();
-		Color c = square.getColor();
-		square.empty();
-		get(dst).put(p, c);
+		Square src = get(move.getSrc());
+		get(move.getDst()).put(src.getPiece(), src.getColor());
+		src.empty();
 		return true;
 	}
 
-	public boolean isValidMove(Position src, Position dst) {
-		return get(src).pieceCanMoveTo(dst);
-	}
-
-	public boolean isValidMove(int srcX, int srcY, int dstX, int destY) {
-		return isValidMove(new Position(srcX, srcY), new Position(dstX, destY));
-	}
-
-	public void loadState(String state) {
+	public void loadState(String state) {//TODO: geht sicherlich besser, vielleicht mit stream?
 		if (state.length() != 128) {
 			throw new IllegalArgumentException("Illegal size of board");
 		}
@@ -81,14 +67,14 @@ public class Board {
 		for (int i = 0; i < 8; i++) {
 			for (int j = 7; j >= 0; j--) {
 				current = state.substring(k*2, (k+1)*2);
+				k++;
 				Square square = get(7-j, 7-i);
-				if (current.equals("--")) {//TODO: cleaner
+				if (current.equals("--")) {
 					square.empty();
-					k++;
 					continue;
 				}
-				Color color = current.substring(0,1).equals("w") ? Color.WHITE : Color.BLACK;
-				switch (current.substring(1,2)) {
+				Color color = current.substring(0, 1).equals("w") ? Color.WHITE : Color.BLACK;
+				switch (current.substring(1, 2)) {
 					case "p":
 						square.put(PAWN, color);
 						break;
@@ -110,23 +96,31 @@ public class Board {
 					default:
 						throw new IllegalArgumentException("can't parse given state");
 				}
-				k++;
 			}
 		}
 	}
 
-	/*public String saveState() {//TODO: ohne json?
-		BoardState bs = new BoardState();
+	public String saveStateToJson() {
+		/*
+			{
+				status: "xy",
+				state: [
+					["BR", "BN", "BB", ...]
+					["BP", "BP", "BP", ...]
+					["--", "--", "--", ...]
+					...
+				]
+			}
+		 */
+
 		String[][] state = new String[8][8];
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				state[i][j] = SQUARES[i][j].toString();
 			}
 		}
-		bs.setState(state);
-		Gson gson = new GsonBuilder().setPrettyPrinting().create();
-		return gson.toJson(bs);
-	}*/
+		return new Gson().toJson(state);
+	}
 
 	@Override
 	public String toString() {

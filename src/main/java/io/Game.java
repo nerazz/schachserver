@@ -16,14 +16,10 @@ import static io.GameState.*;
  */
 public class Game implements Runnable {
 	private int players = 0;
-	private Board board;
+	private Board board = new Board();
 	private Player white, black;
 	private GameState state = WAITING_FOR_PLAYER;
 	private final Object LOCK = new Object();
-
-	public Game(Board board) {
-		this.board = board;
-	}
 
 	public void addPlayer(Player player) {
 		players++;
@@ -47,10 +43,15 @@ public class Game implements Runnable {
 
 	@Override
 	public void run() {
-		startGameNew();
+		startGame();
 	}
 
-	public void startGameNew() {
+	public String getBoardStateJson() {
+		return board.saveStateToJson();
+	}
+
+	public void startGame() {
+		board.initWithPieces();
 		state = TURN_WHITE;
 		Player current = white;
 		Move move;
@@ -58,6 +59,7 @@ public class Game implements Runnable {
 		while (state != WIN_WHITE && state != WIN_BLACK) {
 			nextPlayer = false;
 			System.out.println("STATE: " + state.toString());
+			System.out.println(board.toString());
 			while(!nextPlayer) {
 
 				synchronized (LOCK) {
@@ -72,8 +74,8 @@ public class Game implements Runnable {
 
 				System.out.println("after lock");
 				move = current.getMove();
-				if (board.isValidMove(move.getSrc(), move.getDst())) {
-					board.move(move.getSrc(), move.getDst());
+				if (board.isValidMove(move)) {
+					board.move(move);
 					current.success();
 					if (state == TURN_WHITE) {
 						current = black;
@@ -85,58 +87,10 @@ public class Game implements Runnable {
 					else
 						throw new IllegalStateException("ERROR in Game.startGame().turn");
 					nextPlayer = true;
-					System.out.println("successful move!");
 				} else {
 					current.fail();
-					System.out.println("failed move!");
 				}
-				System.out.println(board.toString());
 				System.out.println("----------round end------------");
-			}
-		}
-	}
-
-	private void startGame() {
-		Player current = white;
-		Move move;
-		boolean done;
-		while(state != WIN_WHITE && state != WIN_BLACK) {
-			done = false;
-			System.out.println("STATE: " + state.toString());
-			synchronized (LOCK) {
-				while (!current.hasMoved() && !done) {
-					try {
-						System.out.println("waiting for move");
-						LOCK.wait();
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					System.out.println("after lock");
-					move = current.getMove();
-					if (board.isValidMove(move.getSrc(), move.getDst())) {
-						board.move(move.getSrc(), move.getDst());
-						current.setMoved(false);
-						current.success();
-						//state = TURN_BLACK;//TODO: geht locker besser, vielleicht mit boolean whitesTurn = !whitesTurn
-						if (state == TURN_WHITE) {
-							current = black;
-							state = TURN_BLACK;
-						} else if (state == TURN_BLACK) {
-							current = white;
-							state = TURN_WHITE;
-						}
-						else
-							throw new IllegalStateException("ERROR in Game.startGame().turn");
-						System.out.println("successful move!");
-						done = true;
-					} else {
-						current.setMoved(false);
-						current.fail();
-						System.out.println("failed move!");
-					}
-					System.out.println(board.toString());
-					System.out.println("----------round end------------");
-				}
 			}
 		}
 	}

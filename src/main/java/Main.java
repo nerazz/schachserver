@@ -8,14 +8,10 @@ import java.util.concurrent.Executors;
 
 public class Main {
 	public static void main(String[] args) {
-		Board board = new Board().initWithPieces();
 		ConsolePlayer.init();
-		Game game = new Game(board);
-
-		Server server = new Server(game);
-		ExecutorService es = Executors.newSingleThreadExecutor();
+		Server server = new Server();
+		ExecutorService es = Executors.newSingleThreadExecutor();//IDEA: server auf mainthread?
 		es.execute(server);
-		System.out.println(board);
 
 
 		/*for(;;) {
