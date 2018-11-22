@@ -61,7 +61,9 @@ public class Game implements Runnable {
 			System.out.println("STATE: " + state.toString());
 			System.out.println(board.toString());
 			while(!nextPlayer) {
-
+				//start für local:
+				((ConsolePlayer)current).readMove();
+				//end
 				synchronized (LOCK) {
 					while (!current.hasStoredMove()) {
 						try {

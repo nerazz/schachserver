@@ -1,5 +1,7 @@
 package io;
 
+import board.Move;
+import board.Position;
 import players.Player;
 
 import java.io.BufferedReader;
@@ -18,7 +20,7 @@ public class ConsolePlayer extends Player {
 		br = new BufferedReader(new InputStreamReader(System.in));
 	}
 
-	public static int[] readMove() {
+	public void readMove() {
 		//TODO: regex für move parsen?
 		String in = "";
 		try {
@@ -33,7 +35,24 @@ public class ConsolePlayer extends Player {
 		nums[1] = chars[1] - 49;
 		nums[2] = chars[3] - 97;
 		nums[3] = chars[4] - 49;
-		return nums;
+		Position src = new Position(nums[0], nums[1]);
+		Position dst = new Position(nums[2], nums[3]);
+		super.setMove(new Move(src, dst));
+		super.setStoredMove(true);
 	}
+
+	@Override
+	public void success() {
+		System.out.println("move successful");
+		setStoredMove(false);
+	}
+
+	@Override
+	public void fail() {
+		System.out.println("move failed");
+		setStoredMove(false);
+	}
+
+
 
 }
