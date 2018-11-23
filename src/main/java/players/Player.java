@@ -50,10 +50,8 @@ public abstract class Player {
 	}
 
 	public void success() {//successful move
-
 	}
 
 	public void fail() {//failed move
-
 	}
 }

@@ -1,4 +1,4 @@
-package io;
+package players;
 
 import board.Move;
 import board.Position;
@@ -27,6 +27,9 @@ public class ConsolePlayer extends Player {
 			in = br.readLine();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+		if (in.equals("surrender")) {
+			//TODO
 		}
 		//a3 e4
 		char[] chars = in.toCharArray();

@@ -3,6 +3,7 @@ package io;
 
 import board.Board;
 import board.Move;
+import players.ConsolePlayer;
 import players.Player;
 
 import java.util.concurrent.ExecutorService;
@@ -41,8 +42,17 @@ public class Game implements Runnable {
 		}
 	}
 
+	private void rollPlayers() {
+		if (Math.random() < 0.5) {
+			Player swap = white;
+			white = black;
+			black = swap;
+		}
+	}
+
 	@Override
 	public void run() {
+		rollPlayers();
 		startGame();
 	}
 
@@ -74,11 +84,12 @@ public class Game implements Runnable {
 					}
 				}
 
-				System.out.println("after lock");
 				move = current.getMove();
 				if (board.isValidMove(move)) {
 					board.move(move);
 					current.success();
+					//TODO: hier checken, ob gewonnen wurde
+					//board.checkIfCheckOrMate
 					if (state == TURN_WHITE) {
 						current = black;
 						state = TURN_BLACK;

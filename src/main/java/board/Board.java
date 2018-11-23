@@ -44,8 +44,12 @@ public class Board {
 	}
 
 	public boolean isValidMove(Move move) {
-		return PieceLogic.isValid(this, move);//TODO: uncomment when rdy
-		//return get(move.getSrc()).getPiece() != Piece.NONE;
+		if (move.getSrc().getX() < 0 || move.getSrc().getX() > 7
+			|| move.getSrc().getY() < 0 || move.getSrc().getY() > 7
+			|| move.getDst().getX() < 0 || move.getDst().getX() > 7
+			|| move.getDst().getY() < 0 || move.getDst().getY() > 7)
+			return false;
+		return PieceLogic.isValid(this, move);
 	}
 
 	public boolean isValidMove(int sx, int sy, int dx, int dy) {
@@ -59,6 +63,12 @@ public class Board {
 		get(move.getDst()).put(src.getPiece(), src.getColor());
 		src.empty();
 		return true;
+	}
+
+	public boolean isChecked(Position p) {
+		Square q = get(p);
+
+		return false;
 	}
 
 	public void loadState(String state) {//TODO: geht sicherlich besser, vielleicht mit stream?

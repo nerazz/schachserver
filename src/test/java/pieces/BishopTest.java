@@ -1,6 +1,7 @@
 package pieces;
 
 import board.Board;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -11,54 +12,38 @@ import static players.Color.WHITE;
 
 class BishopTest {
 
-	/*private Board b;
-	private Piece p;
+	private static Board b;
 
-	@BeforeEach
-	void setupBoard() {
+	@BeforeAll
+	static void setup() {
 		b = new Board();
-		p = b.addPiece(BISHOP, WHITE, 3, 3);
+		String state =
+				  "----------------" //7
+				+ "----------------" //6
+				+ "--BP------------" //5
+				+ "----BP----------" //4
+				+ "--BP--WB--------" //3
+				+ "----------------" //2
+				+ "----------WP----" //1
+				+ "BP----------BP--";//0
+				// 0 1 2 3 4 5 6 7
+		b.loadState(state);
 	}
 
 	@Test
 	void moves() {
-		assertTrue(p.canMove(2,2));
-		assertTrue(p.canMove(1,1));
-		assertTrue(p.canMove(4,4));
-		assertTrue(p.canMove(5,5));
-		assertTrue(p.canMove(7,7));
-		assertTrue(p.canMove(4,2));
-		assertTrue(p.canMove(5,1));
-		assertTrue(p.canMove(0,6));
-		assertFalse(p.canMove(1,7));
-		assertFalse(p.canMove(2,3));
-		assertFalse(p.canMove(3,2));
-		assertFalse(p.canMove(0,7));
-
-		b.addPiece(KNIGHT, WHITE, 2,2);
-		assertFalse(p.canMove(1,2), "blocked by own color");
-		b.addPiece(KNIGHT, WHITE, 5,1);
-		assertFalse(p.canMove(5,1), "blocked by own color");
-
-		b.addPiece(KNIGHT, BLACK, 5,5);
-		assertFalse(p.canMove(7,7), "blocked by enemy color");
-
+		assertTrue(b.isValidMove(3, 3, 4, 4), "can move diagonal (up right)");
+		assertTrue(b.isValidMove(3, 3, 2, 2), "can move diagonal (down left)");
+		assertTrue(b.isValidMove(3, 3, 4, 2), "can move diagonal (down right)");
+		assertFalse(b.isValidMove(3, 3, 4, 3), "can't move straight");
 	}
-
 
 	@Test
 	void takes() {
-		b.addPiece(QUEEN, BLACK, 6,6);
-		b.addPiece(QUEEN, BLACK, 0,0);
-		assertTrue(p.canMove(6,6), "can take in one direction");
-		assertTrue(p.canMove(0,0), "can take in another direction");
-		b.addPiece(QUEEN, WHITE, 0,6);
-		assertFalse(p.canMove(0,6), "can't take own piece");
-		b.addPiece(QUEEN, WHITE, 5,5);
-		assertFalse(p.canMove(6,6), "blocked by own color");
-		b.addPiece(QUEEN, BLACK, 5,5);
-		assertFalse(p.canMove(6,6), "blocked by enemy color");
-		b.addPiece(QUEEN, BLACK, 3,4);
-		assertFalse(p.canMove(3,4), "can't take on non-diagonal");
-	}*/
+		assertTrue(b.isValidMove(3, 3, 2, 4), "can take near diagonal");
+		assertTrue(b.isValidMove(3, 3, 0, 0), "can take far diagonal");
+		assertFalse(b.isValidMove(3, 3, 1, 5), "can't take over enemy");
+		assertFalse(b.isValidMove(3, 3, 6, 0), "can't take over own");
+		assertFalse(b.isValidMove(3, 3, 1, 3), "can't take straight");
+	}
 }

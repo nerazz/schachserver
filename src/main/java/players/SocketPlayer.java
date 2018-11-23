@@ -1,9 +1,9 @@
-package io;
+package players;
 
 
 import board.Move;
 import board.Position;
-import players.Player;
+import io.Server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -22,12 +22,12 @@ public class SocketPlayer extends Player implements Runnable {
 	private BufferedReader in;
 	private Integer id;
 
-	SocketPlayer(Socket socket, Integer id) {
+	public SocketPlayer(Socket socket, Integer id) {
 		this.socket = socket;
 		this.id = id;
 	}
 
-	static void initServer(Server server) {
+	public static void initServer(Server server) {
 		SocketPlayer.server = server;
 	}
 
@@ -79,6 +79,9 @@ public class SocketPlayer extends Player implements Runnable {
 	}*/
 
 	public void parseMove(String moveToParse) {
+		if (moveToParse.equals("surrender")) {
+			//TODO
+		}
 		char[] chars = moveToParse.toCharArray();
 		Position src = new Position(chars[0] - 97, chars[1] - 49);
 		Position dst = new Position(chars[3] - 97, chars[4] - 49);
