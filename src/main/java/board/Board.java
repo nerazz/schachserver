@@ -48,6 +48,10 @@ public class Board {
 		//return get(move.getSrc()).getPiece() != Piece.NONE;
 	}
 
+	public boolean isValidMove(int sx, int sy, int dx, int dy) {
+		return isValidMove(new Move(new Position(sx, sy), new Position(dx, dy)));
+	}
+
 	public boolean move(Move move) {
 		if(!isValidMove(move))
 			return false;

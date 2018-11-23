@@ -1,7 +1,11 @@
 package pieces;
 
 import board.Board;
+import board.Move;
+import board.Position;
 import board.Square;
+import io.Game;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,56 +14,52 @@ import static org.junit.jupiter.api.Assertions.*;
 import static players.Color.*;
 
 class PawnTest {
-	/*private Board b;
+	private static Board board;
 
-	@BeforeEach
-	void setupBoard() {
-		b = new Board();
-		b.get(1,1).put(PAWN, WHITE);
+	@BeforeAll
+	static void setup() {
+		board = new Board();
+		String state =
+				  "----------------"
+				+ "--------BP--BP--"
+				+ "--------WQ------"
+				+ "----------------"
+				+ "BQBQBQ----------"
+				+ "--WP------------"
+				+ "------------WP--"
+				+ "----------------";
+		board.loadState(state);
 	}
 
 	@Test
 	void moves() {
-		assertTrue(b.get(1,1).pieceCanMoveTo(1,2), "white pawn can move up");
-		assertTrue(b.isValidMove(1,1,1,2), "white pawn can move up");
-		b.get(1,2).put(KNIGHT, WHITE);
-		b.addPiece(KNIGHT, WHITE, 1,2);
-		assertFalse(p.canMove(1,2), "white pawn blocked by white");
-		b.addPiece(KNIGHT, BLACK, 1,2);
-		assertFalse(p.canMove(1,2), "white pawn blocked by black");
-
-		b.addPiece(PAWN, BLACK, 1, 6);
-		assertTrue(p.canMove(1,4), "black pawn can move down");
-		b.addPiece(KNIGHT, BLACK, 1,5);
-		assertFalse(p.canMove(1,5), "black pawn blocked by black");
-		b.addPiece(KNIGHT, WHITE, 1,5);
-		assertFalse(p.canMove(1,5), "black pawn blocked by white");
+		assertTrue(board.isValidMove(6, 1, 6, 2), "white can move forwards");
+		assertTrue(board.isValidMove(6, 1, 6, 0), "white can't move backwards");
+		assertTrue(board.isValidMove(6, 6, 6, 5), "black can move forwards");
+		assertTrue(board.isValidMove(6, 6, 6, 7), "black can't move backwards");
 	}
-
 
 	@Test
 	void takes() {
-		b.addPiece(QUEEN, BLACK, 0,2);
-		b.addPiece(QUEEN, BLACK, 2,2);
-		//b.addPiece(QUEEN, BLACK, );
-		assertTrue(p.canMove(0,2), "white pawn can take diagonal left");
-		assertTrue(p.canMove(2,2), "white pawn can take diagonal right");
-
-		b.addPiece(PAWN, BLACK, 1, 6);
-		b.addPiece(QUEEN, BLACK, 0,2);
-		b.addPiece(QUEEN, BLACK, 0,3);
-		assertTrue(p.canMove(0,2));
-		assertTrue(p.canMove(0,3));
+		assertTrue(board.isValidMove(1, 2, 0, 3), "can take diagonal left");
+		assertTrue(board.isValidMove(1, 2, 2, 3), "can take diagonal right");
+		assertFalse(board.isValidMove(1, 2, 1, 3), "white can't take in front");
+		assertFalse(board.isValidMove(4, 6, 4, 5), "black can't take in front");
 	}
 
 	@Test
-	void canMoveTwoSquaresOnFirstMove() {
-		assertTrue(p.canMove(1,3), "can move two squares on first move");
-		assertDoesNotThrow(() -> b.move(p, 1,3));
-		assertFalse(p.canMove(1,5), "can't move two squares on second move");
-	}*/
+	void special() {
+		assertTrue(board.isValidMove(6, 1, 6, 3), "white can move 2 on first move");
+		/*Move m = new Move(new Position(6, 1), new Position(6, 3));
+		assertTrue(board.move(m));
+		assertTrue(board.isValidMove(6, 3, 6, 5), "white can't move 2 on first move");*/
 
-	//TODO: tests for black
+		assertTrue(board.isValidMove(6, 6, 6, 4), "black can move 2 on first move");
+		/*m = new Move(new Position(6, 6), new Position(6, 4));
+		assertTrue(board.move(m));
+		assertTrue(board.isValidMove(6, 4, 6, 2), "black can't move 2 on first move");*/
+	}
+
 	//TODO: upgrade
 	//TODO: en passant
 
