@@ -1,51 +1,47 @@
 package pieces;
 
 import board.Board;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static players.Color.WHITE;
-import static players.Color.BLACK;
 
 class RookTest {
 
-	/*private Board b;
-	private Piece p;
+	private static Board b;
 
-	@BeforeEach
-	void setupBoard() {
+	@BeforeAll
+	static void setup() {
 		b = new Board();
-		p = b.addPiece(ROOK, WHITE, 3, 3);
+		String state =
+				  "------BP--------" //7
+				+ "----------------" //6
+				+ "----------------" //5
+				+ "----BP----------" //4
+				+ "--WP--WR--WP--BP" //3
+				+ "------BP--------" //2
+				+ "----------------" //1
+				+ "------BP--------";//0
+				// 0 1 2 3 4 5 6 7
+		b.loadState(state);
 	}
 
 	@Test
 	void moves() {
-		assertTrue(p.canMove(2,3));
-		assertTrue(p.canMove(1,3));
-		assertTrue(p.canMove(3,5));
-		assertTrue(p.canMove(3,1));
-
-		assertFalse(p.canMove(3,3));
-		assertFalse(p.canMove(2,2));
-		assertFalse(p.canMove(5,2));
-
-		b.addPiece(ROOK, WHITE, 3,4);
-		assertFalse(p.canMove(3,5), "can't move through own color");
-		b.addPiece(ROOK, BLACK, 3,4);
-		assertFalse(p.canMove(3,5), "can't move through enemy color");
+		assertTrue(b.isValidMove(3, 3, 3, 6), "can move upwards");
+		assertTrue(b.isValidMove(3, 3, 4, 3), "can move right");
+		assertFalse(b.isValidMove(3, 3, 5, 5), "can't move diagonal");
+		assertFalse(b.isValidMove(3, 3, 0, 3), "can't move through own pieces");
+		assertFalse(b.isValidMove(3, 3, 3, 1), "can't move through enemy pieces");
 	}
 
 	@Test
 	void takes() {
-		b.addPiece(ROOK, BLACK, 2,3);
-		assertTrue(p.canMove(2,3), "can take enemy");
-		b.addPiece(ROOK, WHITE, 3,4);
-		assertFalse(p.canMove(3,4), "can't take own color");
-		b.addPiece(ROOK, BLACK, 3,5);
-		assertFalse(p.canMove(3,5),"can't take through own color");
-		b.addPiece(ROOK, BLACK, 3,4);
-		assertFalse(p.canMove(3,5),"can't take through enemy color");
-	}*/
+		assertTrue(b.isValidMove(3, 3, 3, 2), "can take downward near");
+		assertTrue(b.isValidMove(3, 3, 3, 7), "can take upward far");
+		assertFalse(b.isValidMove(3, 3, 2, 4), "can't take diagonal");
+		assertFalse(b.isValidMove(3, 3, 3, 0), "can't take through enemy piece");
+		assertFalse(b.isValidMove(3, 3, 7, 3), "can't take through own piece");
+	}
 
 }
