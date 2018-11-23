@@ -73,23 +73,20 @@ public final class PieceLogic {
 	}
 
 	public static boolean bishopMove(Board board, Move move) {
+		Position src = move.getSrc();
+		Position dst = move.getDst();
+		int dirX = (dst.getX() < src.getX()) ? -1 : 1;
+		int dirY = (dst.getY() < src.getY()) ? -1 : 1;
+		Position pos = new Position(src.getX(), src.getY());
 
-
-		Square src = board.get(move.getSrc());
-		Square dst = board.get(move.getDst());
-
-			int dirX = (dst.getX() < src.getX()) ? -1 : 1;
-			int dirY = (dst.getY() < src.getY()) ? -1 : 1;
-
-			Position pos = new Position(src.getX() + dirX, src.getY() + dirY);
-
-			while (!src.equals(dst)) {
-				pos = new Position(pos.getX() + dirX, pos.getY() + dirY);
-				if (pos.getX() < 0 || pos.getX() > 7 || pos.getY() < 0 || pos.getY() > 7)
-					return false;
-				if (!pos.equals(dst) && board.get(pos).getPiece() != Piece.NONE)
-					return false;
-			}
-			return true;
+		while (!pos.equals(dst)) {
+			pos = new Position(pos.getX() + dirX, pos.getY() + dirY);
+			if (pos.getX() < 0 || pos.getX() > 7 || pos.getY() < 0 || pos.getY() > 7)
+				return false;
+			if (!pos.equals(dst) && board.get(pos).getPiece() != Piece.NONE)
+				return false;
 		}
+		return true;
 	}
+
+}
