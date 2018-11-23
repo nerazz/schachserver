@@ -34,9 +34,9 @@ class PawnTest {
 	@Test
 	void moves() {
 		assertTrue(board.isValidMove(6, 1, 6, 2), "white can move forwards");
-		assertTrue(board.isValidMove(6, 1, 6, 0), "white can't move backwards");
+		assertFalse(board.isValidMove(6, 1, 6, 0), "white can't move backwards");
 		assertTrue(board.isValidMove(6, 6, 6, 5), "black can move forwards");
-		assertTrue(board.isValidMove(6, 6, 6, 7), "black can't move backwards");
+		assertFalse(board.isValidMove(6, 6, 6, 7), "black can't move backwards");
 	}
 
 	@Test
