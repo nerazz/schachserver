@@ -73,31 +73,23 @@ public final class PieceLogic {
 	}
 
 	public static boolean bishopMove(Board board, Move move) {
-		return false;
-		//bishop
-		/*@Override
-		public boolean canMove(Position dest) {
-			Position POS = getPosition();
-			if (POS.equals(dest))
-				return false;
 
-			if (!getBoard().getSquare(dest).isEmpty()) {
-				if (getBoard().getSquare(dest).getPiece().getColor() == getColor()) {
+
+		Square src = board.get(move.getSrc());
+		Square dst = board.get(move.getDst());
+
+			int dirX = (dst.getX() < src.getX()) ? -1 : 1;
+			int dirY = (dst.getY() < src.getY()) ? -1 : 1;
+
+			Position pos = new Position(src.getX() + dirX, src.getY() + dirY);
+
+			while (!src.equals(dst)) {
+				pos = new Position(pos.getX() + dirX, pos.getY() + dirY);
+				if (pos.getX() < 0 || pos.getX() > 7 || pos.getY() < 0 || pos.getY() > 7)
 					return false;
-				}
-			}
-
-			int dirX = (dest.getX() < POS.getX()) ? -1 : 1;
-			int dirY = (dest.getY() < POS.getY()) ? -1 : 1;
-
-			while (!POS.equals(dest)) {
-				POS = new Position(POS.getX() + dirX, POS.getY() + dirY);
-				if (POS.getX() < 0 || POS.getX() > 7 || POS.getY() < 0 || POS.getY() > 7)
-					return false;
-				if (!POS.equals(dest) && !getBoard().getSquare(POS).isEmpty())
+				if (!pos.equals(dst) && board.get(pos).getPiece() != Piece.NONE)
 					return false;
 			}
 			return true;
-		}*/
+		}
 	}
-}
