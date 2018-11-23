@@ -44,8 +44,8 @@ public class Board {
 	}
 
 	public boolean isValidMove(Move move) {
-		//return PieceLogic.isValid(this, move);//TODO: uncomment when rdy
-		return get(move.getSrc()).getPiece() != Piece.NONE;
+		return PieceLogic.isValid(this, move);//TODO: uncomment when rdy
+		//return get(move.getSrc()).getPiece() != Piece.NONE;
 	}
 
 	public boolean move(Move move) {

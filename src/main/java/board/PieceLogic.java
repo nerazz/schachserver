@@ -32,7 +32,6 @@ public final class PieceLogic {
 		}*/
 		if (src.getY() + dir != dst.getY())
 			return false;//wrong direction
-
 		if (dst.getY() == src.getX() && dst.getPiece() == Piece.NONE)
 			return true;
 		else
